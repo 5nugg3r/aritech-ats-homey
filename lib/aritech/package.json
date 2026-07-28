@@ -1,0 +1,12 @@
+{
+  "name": "aritech-client-vendored",
+  "version": "1.5.0",
+  "description": "Vendored copy of sebakerckhof/aritech-js (Aritech ATS protocol client). See NOTICE.",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "license": "AGPL-3.0-or-later",
+  "private": true
+}

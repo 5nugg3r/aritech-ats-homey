@@ -1,0 +1,126 @@
+{
+  // VS Code tasks for the Homey CLI workflow.
+  // Run via: Terminal > Run Task…  (or Ctrl/Cmd+Shift+B for the default build task)
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Homey: Login",
+      "detail": "Log in to your Athom account (opens a browser to authenticate).",
+      "type": "shell",
+      "command": "homey login",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Homey: Select",
+      "detail": "Select which Homey to target for run/install/publish.",
+      "type": "shell",
+      "command": "homey select",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Homey: App Run",
+      "detail": "Upload and run the app on your Homey, streaming live logs (Ctrl+C to stop).",
+      "type": "shell",
+      "command": "homey app run",
+      "problemMatcher": [],
+      "isBackground": true,
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "Homey: App Run (clean)",
+      "detail": "Run the app with a clean install (wipes app settings/devices first).",
+      "type": "shell",
+      "command": "homey app run --clean",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "Homey: App Install",
+      "detail": "Install the app on your Homey without keeping the terminal attached.",
+      "type": "shell",
+      "command": "homey app install",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Homey: App Build",
+      "detail": "Compile .homeycompose/* into app.json.",
+      "type": "shell",
+      "command": "homey app build",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Homey: App Validate (debug)",
+      "detail": "Validate the app at 'debug' level.",
+      "type": "shell",
+      "command": "homey app validate --level debug",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Homey: App Validate (publish)",
+      "detail": "Validate the app at 'publish' level (App Store requirements).",
+      "type": "shell",
+      "command": "homey app validate --level publish",
+      "problemMatcher": [],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "clear": true
+      }
+    },
+    {
+      "label": "Homey: App Publish",
+      "detail": "Publish a new version of the app to the Homey App Store.",
+      "type": "shell",
+      "command": "homey app publish",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    }
+  ]
+}

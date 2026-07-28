@@ -1,0 +1,17 @@
+{
+  "name": "au.com.aritech.ats",
+  "version": "0.1.0",
+  "description": "Homey app to monitor and control Aritech ATS Advisor Advanced alarm panels over the local network.",
+  "main": "app.js",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "validate": "homey app validate",
+    "run": "homey app run",
+    "build": "homey app build"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=22"
+  }
+}

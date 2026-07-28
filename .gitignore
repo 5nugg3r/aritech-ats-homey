@@ -141,3 +141,11 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Homey
+.homeybuild/
+env.json
+userdata/
+
+# Private prompts (kept in a separate private git repo, not in the public repo)
+.github/prompts/

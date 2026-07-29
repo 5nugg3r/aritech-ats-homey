@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "au.com.aritech.ats",
-  "version": "0.1.1",
+  "version": "0.8.1",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -44,20 +44,20 @@
     "xlarge": "/assets/images/xlarge.png"
   },
   "author": {
-    "name": "igb",
+    "name": "5nugg3r",
     "email": "i.bliekendaal+homeyaritech@gmail.com"
   },
   "contributors": {
     "developers": [
       {
-        "name": "igb"
+        "name": "5nugg3r"
       }
     ]
   },
   "bugs": {
-    "url": "https://github.com/igb/aritech-ats-homey/issues"
+    "url": "https://github.com/5nugg3r/aritech-ats-homey/issues"
   },
-  "source": "https://github.com/igb/aritech-ats-homey",
+  "source": "https://github.com/5nugg3r/aritech-ats-homey",
   "flow": {
     "triggers": [
       {

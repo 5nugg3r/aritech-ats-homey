@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <path d="M128 20 L212 52 V128 C212 180 176 220 128 236 C80 220 44 180 44 128 V52 Z"
-        fill="#E2001A"/>
-  <path d="M128 44 L188 67 V128 C188 168 162 199 128 212 C94 199 68 168 68 128 V67 Z"
-        fill="#ffffff"/>
-  <path d="M112 150 l-22 -22 12 -12 10 10 30 -30 12 12 z" fill="#E2001A"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" fill="#E2001A"
+        d="M128 20 212 52V128c0 52-36 92-84 108-48-16-84-56-84-108V52L128 20Z
+           M116 168 80 132l16-16 20 20 44-44 16 16z"/>
 </svg>

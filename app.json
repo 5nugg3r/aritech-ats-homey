@@ -57,5 +57,45 @@
   "bugs": {
     "url": "https://github.com/igb/aritech-ats-homey/issues"
   },
-  "source": "https://github.com/igb/aritech-ats-homey"
+  "source": "https://github.com/igb/aritech-ats-homey",
+  "drivers": [
+    {
+      "name": {
+        "en": "ATS Area",
+        "nl": "ATS Gebied"
+      },
+      "class": "homealarm",
+      "capabilities": [
+        "homealarm_state"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/ats-area/assets/images/small.png",
+        "large": "/drivers/ats-area/assets/images/large.png",
+        "xlarge": "/drivers/ats-area/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "connect"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "ats-area"
+    }
+  ]
 }

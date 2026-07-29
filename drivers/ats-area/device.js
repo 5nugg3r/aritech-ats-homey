@@ -176,11 +176,26 @@ class AtsAreaDevice extends Homey.Device {
    */
   _handleZoneChanged(event) {
     const zoneNum = event.id;
+    // The ZoneState lives under `.state` (event = { id, name, oldData, newData }
+    // where newData = { zone, state: ZoneState, rawHex }).
+    const oldS = (event.oldData && event.oldData.state) || {};
+    const newS = (event.newData && event.newData.state) || {};
+
+    // Debug: one line per zone change (edge-triggered), gated behind the
+    // device's 'debug_logging' setting.
+    this._dbg(`zone ${zoneNum} "${event.name || ''}" changed`, {
+      isActive: newS.isActive,
+      wasActive: oldS.isActive,
+      isAlarming: newS.isAlarming,
+      isTampered: newS.isTampered,
+      isInhibited: newS.isInhibited,
+      isSet: newS.isSet,
+      hasFault: newS.hasFault,
+    });
+
     const areas = this._conn && this._conn.getZoneAreas ? this._conn.getZoneAreas(zoneNum) : null;
     if (areas && areas.length > 0 && !areas.includes(this._areaNumber)) return;
 
-    const oldS = event.oldData || {};
-    const newS = event.newData || {};
     const tokens = { zone: zoneNum, zone_name: event.name || `Zone ${zoneNum}` };
     const d = this.driver;
 
@@ -203,6 +218,14 @@ class AtsAreaDevice extends Homey.Device {
     }
   }
 
+  /**
+   * Log only when the device's 'debug_logging' setting is enabled.
+   * @private
+   */
+  _dbg(...args) {
+    if (this.getSettings().debug_logging) this.log(...args);
+  }
+
   /** @private */
   _syncFromCurrentState() {
     if (!this._conn) return;
@@ -218,7 +241,7 @@ class AtsAreaDevice extends Homey.Device {
   _applyAreaState(entry) {
     const a = entry && entry.state ? entry.state : null;
     const value = this._toHomealarmState(a);
-    this.log(
+    this._dbg(
       `area ${this._areaNumber} state → ${value}`,
       a
         ? {

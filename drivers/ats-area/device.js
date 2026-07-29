@@ -17,6 +17,10 @@ class AtsAreaDevice extends Homey.Device {
     this._conn = null;
     this._areaNumber = this.getStoreValue('areaNumber');
 
+    // Ensure indicator capabilities exist on devices paired before they were
+    // added to the driver.
+    await this._ensureCapabilities();
+
     // Stable, bound handlers so we can detach them later.
     this._onConnected = this._handleConnected.bind(this);
     this._onDisconnected = this._handleDisconnected.bind(this);
@@ -162,6 +166,19 @@ class AtsAreaDevice extends Homey.Device {
     this._applyAreaState(event.newData);
   }
 
+  /**
+   * Add capabilities that may be missing on devices paired with an older
+   * version of this driver. Safe to call on every init.
+   * @private
+   */
+  async _ensureCapabilities() {
+    for (const cap of ['alarm_armed', 'alarm_generic']) {
+      if (!this.hasCapability(cap)) {
+        await this.addCapability(cap).catch(this.error);
+      }
+    }
+  }
+
   /** @private */
   _syncFromCurrentState() {
     if (!this._conn) return;
@@ -193,6 +210,14 @@ class AtsAreaDevice extends Homey.Device {
     );
     if (value) {
       this.setCapabilityValue('homealarm_state', value).catch(this.error);
+    }
+    if (a) {
+      // Status indicator: armed when fully or partially set (enum capabilities
+      // cannot be device indicators, so mirror it to a boolean).
+      const armed = value === 'armed' || value === 'partially_armed';
+      this.setCapabilityValue('alarm_armed', armed).catch(this.error);
+      // Warning indicator: only true when the area is actually in alarm.
+      this.setCapabilityValue('alarm_generic', !!a.isAlarming).catch(this.error);
     }
   }
 

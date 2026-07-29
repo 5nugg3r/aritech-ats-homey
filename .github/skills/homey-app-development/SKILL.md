@@ -119,6 +119,21 @@ module.exports = MyDevice;
 - **Availability**: `setAvailable()`, `setUnavailable(msg)`.
 - **Warnings**: `setWarning(msg)` shows a non-blocking banner; `unsetWarning()` clears it.
 
+### Device tile indicators (the status dot/icon next to a device)
+
+Only **boolean `alarm_*`** and **number `measure_*`/`meter_*`** capabilities can be
+shown as a device indicator. An **enum capability (e.g. `homealarm_state`) cannot
+be an indicator** — so a device with only an enum shows no indicator. To surface a
+state, mirror it to a boolean:
+
+- All `alarm_*` booleans are grouped by default; the tile shows a **warning icon
+  if any is `true`**. The user can instead pick one specific alarm as the indicator.
+- A custom boolean capability (`.homeycompose/capabilities/<id>.json`) may set its
+  own `icon`, `title`, `uiComponent`, and `insightsTitleTrue/False`.
+- Classes `thermostat`, `light`, `lock`, `speaker` do not allow user indicator override.
+- When adding capabilities to an existing driver, also `addCapability()` in
+  `onInit` (guarded by `hasCapability()`) so already-paired devices get them.
+
 ## Pairing
 
 Define the flow in `driver.compose.json`:

@@ -66,8 +66,18 @@
       },
       "class": "homealarm",
       "capabilities": [
-        "homealarm_state"
+        "homealarm_state",
+        "alarm_armed",
+        "alarm_generic"
       ],
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "Alarm",
+            "nl": "Alarm"
+          }
+        }
+      },
       "platforms": [
         "local"
       ],
@@ -102,5 +112,26 @@
       ],
       "id": "ats-area"
     }
-  ]
+  ],
+  "capabilities": {
+    "alarm_armed": {
+      "type": "boolean",
+      "title": {
+        "en": "Armed",
+        "nl": "Scherp"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Armed",
+        "nl": "Scherp geschakeld"
+      },
+      "insightsTitleFalse": {
+        "en": "Disarmed",
+        "nl": "Uitgeschakeld"
+      },
+      "icon": "/assets/alarm_armed.svg"
+    }
+  }
 }

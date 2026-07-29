@@ -4,7 +4,12 @@
     "nl": "ATS Gebied"
   },
   "class": "homealarm",
-  "capabilities": ["homealarm_state"],
+  "capabilities": ["homealarm_state", "alarm_armed", "alarm_generic"],
+  "capabilitiesOptions": {
+    "alarm_generic": {
+      "title": { "en": "Alarm", "nl": "Alarm" }
+    }
+  },
   "platforms": ["local"],
   "connectivity": ["lan"],
   "images": {

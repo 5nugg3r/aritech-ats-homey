@@ -58,6 +58,455 @@
     "url": "https://github.com/igb/aritech-ats-homey/issues"
   },
   "source": "https://github.com/igb/aritech-ats-homey",
+  "flow": {
+    "triggers": [
+      {
+        "id": "alarm_panic_true",
+        "title": {
+          "en": "The panic alarm turned on",
+          "nl": "Het overvalalarm ging aan"
+        },
+        "hint": {
+          "en": "Triggers when a panic (hold-up) alarm is reported for this area.",
+          "nl": "Wordt geactiveerd wanneer er een overvalalarm voor dit gebied wordt gemeld."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "alarm_panic_false",
+        "title": {
+          "en": "The panic alarm turned off",
+          "nl": "Het overvalalarm ging uit"
+        },
+        "hint": {
+          "en": "Triggers when the panic alarm for this area clears.",
+          "nl": "Wordt geactiveerd wanneer het overvalalarm voor dit gebied is opgeheven."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "alarm_medical_true",
+        "title": {
+          "en": "The medical alarm turned on",
+          "nl": "Het medisch alarm ging aan"
+        },
+        "hint": {
+          "en": "Triggers when a medical alarm is reported for this area.",
+          "nl": "Wordt geactiveerd wanneer er een medisch alarm voor dit gebied wordt gemeld."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "alarm_medical_false",
+        "title": {
+          "en": "The medical alarm turned off",
+          "nl": "Het medisch alarm ging uit"
+        },
+        "hint": {
+          "en": "Triggers when the medical alarm for this area clears.",
+          "nl": "Wordt geactiveerd wanneer het medisch alarm voor dit gebied is opgeheven."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "alarm_duress_true",
+        "title": {
+          "en": "The duress alarm turned on",
+          "nl": "Het dwangalarm ging aan"
+        },
+        "hint": {
+          "en": "Triggers when a duress alarm is reported for this area.",
+          "nl": "Wordt geactiveerd wanneer er een dwangalarm voor dit gebied wordt gemeld."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "alarm_duress_false",
+        "title": {
+          "en": "The duress alarm turned off",
+          "nl": "Het dwangalarm ging uit"
+        },
+        "hint": {
+          "en": "Triggers when the duress alarm for this area clears.",
+          "nl": "Wordt geactiveerd wanneer het dwangalarm voor dit gebied is opgeheven."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "zone_opened",
+        "title": {
+          "en": "A zone opened",
+          "nl": "Een zone is geopend"
+        },
+        "hint": {
+          "en": "Triggers when a zone in this area becomes active (open).",
+          "nl": "Wordt geactiveerd wanneer een zone in dit gebied actief (open) wordt."
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone",
+              "nl": "Zone"
+            },
+            "example": 3
+          },
+          {
+            "name": "zone_name",
+            "type": "string",
+            "title": {
+              "en": "Zone name",
+              "nl": "Zonenaam"
+            },
+            "example": {
+              "en": "Front door",
+              "nl": "Voordeur"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "zone_closed",
+        "title": {
+          "en": "A zone closed",
+          "nl": "Een zone is gesloten"
+        },
+        "hint": {
+          "en": "Triggers when a zone in this area becomes inactive (closed).",
+          "nl": "Wordt geactiveerd wanneer een zone in dit gebied inactief (gesloten) wordt."
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone",
+              "nl": "Zone"
+            },
+            "example": 3
+          },
+          {
+            "name": "zone_name",
+            "type": "string",
+            "title": {
+              "en": "Zone name",
+              "nl": "Zonenaam"
+            },
+            "example": {
+              "en": "Front door",
+              "nl": "Voordeur"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "zone_alarm",
+        "title": {
+          "en": "A zone triggers an alarm",
+          "nl": "Een zone slaat alarm"
+        },
+        "hint": {
+          "en": "Triggers when a zone in this area goes into alarm.",
+          "nl": "Wordt geactiveerd wanneer een zone in dit gebied in alarm gaat."
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone",
+              "nl": "Zone"
+            },
+            "example": 3
+          },
+          {
+            "name": "zone_name",
+            "type": "string",
+            "title": {
+              "en": "Zone name",
+              "nl": "Zonenaam"
+            },
+            "example": {
+              "en": "Front door",
+              "nl": "Voordeur"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "zone_tamper",
+        "title": {
+          "en": "A zone is tampered",
+          "nl": "Een zone is gesaboteerd"
+        },
+        "hint": {
+          "en": "Triggers when a zone in this area reports tamper.",
+          "nl": "Wordt geactiveerd wanneer een zone in dit gebied sabotage meldt."
+        },
+        "tokens": [
+          {
+            "name": "zone",
+            "type": "number",
+            "title": {
+              "en": "Zone",
+              "nl": "Zone"
+            },
+            "example": 3
+          },
+          {
+            "name": "zone_name",
+            "type": "string",
+            "title": {
+              "en": "Zone name",
+              "nl": "Zonenaam"
+            },
+            "example": {
+              "en": "Front door",
+              "nl": "Voordeur"
+            }
+          }
+        ],
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "zone_is_open",
+        "title": {
+          "en": "Zone !{{is|isn't}} open",
+          "nl": "Zone !{{is|is niet}} open"
+        },
+        "titleFormatted": {
+          "en": "Zone [[zone]] !{{is|isn't}} open",
+          "nl": "Zone [[zone]] !{{is|is niet}} open"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          },
+          {
+            "name": "zone",
+            "type": "autocomplete",
+            "title": {
+              "en": "Zone",
+              "nl": "Zone"
+            },
+            "placeholder": {
+              "en": "Pick a zone…",
+              "nl": "Kies een zone…"
+            }
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "arm_night",
+        "title": {
+          "en": "Arm night (part 2)",
+          "nl": "Nacht activeren (deel 2)"
+        },
+        "hint": {
+          "en": "Arm this area in the night / part set 2 mode.",
+          "nl": "Activeer dit gebied in de nacht- / deel 2-stand."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "force_arm",
+        "title": {
+          "en": "Force arm",
+          "nl": "Geforceerd activeren"
+        },
+        "titleFormatted": {
+          "en": "Force arm ([[mode]])",
+          "nl": "Geforceerd activeren ([[mode]])"
+        },
+        "hint": {
+          "en": "Arm this area, forcing past faults, active or inhibited zones.",
+          "nl": "Activeer dit gebied en negeer storingen, actieve of overbrugde zones."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode",
+              "nl": "Stand"
+            },
+            "values": [
+              {
+                "id": "full",
+                "label": {
+                  "en": "Full",
+                  "nl": "Volledig"
+                }
+              },
+              {
+                "id": "part1",
+                "label": {
+                  "en": "Part 1",
+                  "nl": "Deel 1"
+                }
+              },
+              {
+                "id": "part2",
+                "label": {
+                  "en": "Night (part 2)",
+                  "nl": "Nacht (deel 2)"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "inhibit_zone",
+        "title": {
+          "en": "Inhibit zone",
+          "nl": "Zone overbruggen"
+        },
+        "titleFormatted": {
+          "en": "Inhibit zone [[zone]]",
+          "nl": "Zone [[zone]] overbruggen"
+        },
+        "hint": {
+          "en": "Bypass (inhibit) a zone so it is ignored while armed.",
+          "nl": "Overbrug (inhibit) een zone zodat deze wordt genegeerd tijdens inschakeling."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          },
+          {
+            "name": "zone",
+            "type": "autocomplete",
+            "title": {
+              "en": "Zone",
+              "nl": "Zone"
+            },
+            "placeholder": {
+              "en": "Pick a zone…",
+              "nl": "Kies een zone…"
+            }
+          }
+        ]
+      },
+      {
+        "id": "uninhibit_zone",
+        "title": {
+          "en": "Uninhibit zone",
+          "nl": "Zone herstellen"
+        },
+        "titleFormatted": {
+          "en": "Uninhibit zone [[zone]]",
+          "nl": "Zone [[zone]] herstellen"
+        },
+        "hint": {
+          "en": "Restore (un-inhibit) a previously bypassed zone.",
+          "nl": "Herstel (un-inhibit) een eerder overbrugde zone."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          },
+          {
+            "name": "zone",
+            "type": "autocomplete",
+            "title": {
+              "en": "Zone",
+              "nl": "Zone"
+            },
+            "placeholder": {
+              "en": "Pick a zone…",
+              "nl": "Kies een zone…"
+            }
+          }
+        ]
+      }
+    ]
+  },
   "drivers": [
     {
       "name": {
@@ -123,18 +572,18 @@
       "type": "boolean",
       "title": {
         "en": "Armed",
-        "nl": "Scherp"
+        "nl": "Geactiveerd"
       },
       "uiComponent": "sensor",
       "getable": true,
       "setable": false,
       "insightsTitleTrue": {
         "en": "Armed",
-        "nl": "Ingeschakeld"
+        "nl": "Geactiveerd"
       },
       "insightsTitleFalse": {
         "en": "Disarmed",
-        "nl": "Uitgeschakeld"
+        "nl": "Gedeactiveerd"
       },
       "icon": "/assets/alarm_armed.svg"
     },

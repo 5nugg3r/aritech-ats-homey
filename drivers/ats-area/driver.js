@@ -15,6 +15,39 @@ const DEFAULT_PORT = 32000;
 class AtsAreaDriver extends Homey.Driver {
   async onInit() {
     this.log('ATS Area driver initialized');
+    this._registerFlowCards();
+  }
+
+  /**
+   * Register Flow cards for zone events (device triggers), the zone-open
+   * condition, and the area/zone actions. The `_true`/`_false` triggers for the
+   * custom alarm capabilities are fired automatically by Homey.
+   * @private
+   */
+  _registerFlowCards() {
+    // Device trigger cards for zone events, fired from the device.
+    this.zoneOpenedTrigger = this.homey.flow.getDeviceTriggerCard('zone_opened');
+    this.zoneClosedTrigger = this.homey.flow.getDeviceTriggerCard('zone_closed');
+    this.zoneAlarmTrigger = this.homey.flow.getDeviceTriggerCard('zone_alarm');
+    this.zoneTamperTrigger = this.homey.flow.getDeviceTriggerCard('zone_tamper');
+
+    // Condition: is a zone open?
+    const zoneIsOpen = this.homey.flow.getConditionCard('zone_is_open');
+    zoneIsOpen.registerRunListener(async (args) => args.device.isZoneOpen(Number(args.zone.number)));
+    zoneIsOpen.registerArgumentAutocompleteListener('zone', async (query, args) => args.device.zoneAutocomplete(query));
+
+    // Actions: area arming variants.
+    this.homey.flow.getActionCard('arm_night')
+      .registerRunListener(async (args) => args.device.armNight());
+    this.homey.flow.getActionCard('force_arm')
+      .registerRunListener(async (args) => args.device.forceArm(args.mode));
+
+    // Actions: zone inhibit / uninhibit, with a zone autocomplete argument.
+    for (const [cardId, method] of [['inhibit_zone', 'inhibitZone'], ['uninhibit_zone', 'uninhibitZone']]) {
+      const card = this.homey.flow.getActionCard(cardId);
+      card.registerRunListener(async (args) => args.device[method](Number(args.zone.number)));
+      card.registerArgumentAutocompleteListener('zone', async (query, args) => args.device.zoneAutocomplete(query));
+    }
   }
 
   /**

@@ -1,10 +1,10 @@
 {
   "type": "boolean",
-  "title": { "en": "Armed", "nl": "Scherp" },
+  "title": { "en": "Armed", "nl": "Geactiveerd" },
   "uiComponent": "sensor",
   "getable": true,
   "setable": false,
-  "insightsTitleTrue": { "en": "Armed", "nl": "Ingeschakeld" },
-  "insightsTitleFalse": { "en": "Disarmed", "nl": "Uitgeschakeld" },
+  "insightsTitleTrue": { "en": "Armed", "nl": "Geactiveerd" },
+  "insightsTitleFalse": { "en": "Disarmed", "nl": "Gedeactiveerd" },
   "icon": "/assets/alarm_armed.svg"
 }

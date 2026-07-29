@@ -25,6 +25,7 @@ class AtsAreaDevice extends Homey.Device {
     this._onConnected = this._handleConnected.bind(this);
     this._onDisconnected = this._handleDisconnected.bind(this);
     this._onAreaChanged = this._handleAreaChanged.bind(this);
+    this._onZoneChanged = this._handleZoneChanged.bind(this);
 
     // Register the capability listener first, so arm/disarm always has a
     // handler even if the connection is still being established.
@@ -133,6 +134,7 @@ class AtsAreaDevice extends Homey.Device {
     conn.on('initialized', this._onConnected);
     conn.on('disconnected', this._onDisconnected);
     conn.on('areaChanged', this._onAreaChanged);
+    conn.on('zoneChanged', this._onZoneChanged);
 
     try {
       await conn.ensureConnected();
@@ -164,6 +166,28 @@ class AtsAreaDevice extends Homey.Device {
   _handleAreaChanged(event) {
     if (event.id !== this._areaNumber) return;
     this._applyAreaState(event.newData);
+  }
+
+  /**
+   * Fire zone Flow triggers on state-change edges. Scoped to this area when the
+   * zone→area mapping is known.
+   * @private
+   * @param {{ id:number, name?:string, oldData?:object, newData?:object }} event
+   */
+  _handleZoneChanged(event) {
+    const zoneNum = event.id;
+    const areas = this._conn && this._conn.getZoneAreas ? this._conn.getZoneAreas(zoneNum) : null;
+    if (areas && areas.length > 0 && !areas.includes(this._areaNumber)) return;
+
+    const oldS = event.oldData || {};
+    const newS = event.newData || {};
+    const tokens = { zone: zoneNum, zone_name: event.name || `Zone ${zoneNum}` };
+    const d = this.driver;
+
+    if (newS.isActive && !oldS.isActive) d.zoneOpenedTrigger.trigger(this, tokens).catch(this.error);
+    if (!newS.isActive && oldS.isActive) d.zoneClosedTrigger.trigger(this, tokens).catch(this.error);
+    if (newS.isAlarming && !oldS.isAlarming) d.zoneAlarmTrigger.trigger(this, tokens).catch(this.error);
+    if (newS.isTampered && !oldS.isTampered) d.zoneTamperTrigger.trigger(this, tokens).catch(this.error);
   }
 
   /**
@@ -292,6 +316,63 @@ class AtsAreaDevice extends Homey.Device {
     await this._release();
   }
 
+  // ==========================================================================
+  // Flow card helpers (called by the driver's run/autocomplete listeners)
+  // ==========================================================================
+
+  /** Arm this area in night / part set 2 mode ('arm_night' action). */
+  async armNight() {
+    if (!this._conn) throw new Error('Not connected to panel');
+    await this._conn.armArea(this._areaNumber, 'part2');
+  }
+
+  /**
+   * Force-arm this area in the given mode ('force_arm' action).
+   * @param {'full'|'part1'|'part2'} mode
+   */
+  async forceArm(mode) {
+    if (!this._conn) throw new Error('Not connected to panel');
+    const setType = mode === 'part1' || mode === 'part2' ? mode : 'full';
+    await this._conn.armArea(this._areaNumber, setType, true);
+  }
+
+  /** Inhibit (bypass) a zone ('inhibit_zone' action). @param {number} zoneNum */
+  async inhibitZone(zoneNum) {
+    if (!this._conn) throw new Error('Not connected to panel');
+    await this._conn.inhibitZone(zoneNum);
+  }
+
+  /** Un-inhibit (restore) a zone ('uninhibit_zone' action). @param {number} zoneNum */
+  async uninhibitZone(zoneNum) {
+    if (!this._conn) throw new Error('Not connected to panel');
+    await this._conn.uninhibitZone(zoneNum);
+  }
+
+  /**
+   * Whether a zone is currently open/active ('zone_is_open' condition).
+   * @param {number} zoneNum
+   * @returns {boolean}
+   */
+  isZoneOpen(zoneNum) {
+    const map = this._conn && this._conn.getZoneStates ? this._conn.getZoneStates() : {};
+    const entry = map[zoneNum];
+    const zs = entry && entry.state ? entry.state : entry;
+    return !!(zs && zs.isActive);
+  }
+
+  /**
+   * Autocomplete the panel's zones for Flow arguments.
+   * @param {string} query
+   * @returns {Array<{name:string, description:string, number:number}>}
+   */
+  zoneAutocomplete(query) {
+    const zones = this._conn && this._conn.getZones ? this._conn.getZones() : [];
+    const q = String(query || '').toLowerCase();
+    return zones
+      .filter((z) => !q || `${z.number}`.includes(q) || (z.name || '').toLowerCase().includes(q))
+      .map((z) => ({ name: z.name || `Zone ${z.number}`, description: `Zone ${z.number}`, number: z.number }));
+  }
+
   /**
    * Apply a new connection configuration (from the repair flow) and reconnect.
    * Releases the current shared connection under the OLD store values first,
@@ -326,6 +407,7 @@ class AtsAreaDevice extends Homey.Device {
       this._conn.removeListener('initialized', this._onConnected);
       this._conn.removeListener('disconnected', this._onDisconnected);
       this._conn.removeListener('areaChanged', this._onAreaChanged);
+      this._conn.removeListener('zoneChanged', this._onZoneChanged);
       this._conn = null;
     }
     const app = this.homey.app;

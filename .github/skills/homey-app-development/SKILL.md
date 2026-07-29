@@ -301,8 +301,18 @@ Remember: programmatic `setSettings()` does not fire `onSettings()`.
 ## Flow cards
 
 - App-level: `.homeycompose/flow/<trigger|condition|action>/<id>.json`.
-- Driver-level: `drivers/<id>/driver.flow.compose.json`.
-- Register/handle in code:
+- Driver-level (device cards, auto-scoped to the driver's devices):
+  `drivers/<id>/driver.flow.compose.json`.
+- **Auto-generated cards:** most **system capabilities** already provide Flow
+  cards (e.g. `alarm_fire` → "Fire alarm turned on/off", `homealarm_state` →
+  arm/disarm). Don't redefine those.
+- **Custom capability triggers:** when you `setCapabilityValue()` a *custom*
+  capability, Homey **auto-fires** device triggers by convention:
+  - boolean → `<capabilityId>_true` and `<capabilityId>_false`
+  - number/enum/string → `<capabilityId>_changed` (with a same-named token)
+  Just DEFINE those cards in `driver.flow.compose.json` (id must match); no manual
+  `trigger()` call is needed.
+- Register/handle app-level or argument-bearing cards in code:
 
 ```js
 // app.js or driver.js

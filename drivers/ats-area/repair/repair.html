@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <p class="homey-form-hint">
+    Update the connection details for this device, e.g. after the panel's IP
+    address changed. Leave the secret fields blank to keep the current values.
+  </p>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="host">Panel IP address / hostname</label>
+    <input class="homey-form-input" id="host" type="text" inputmode="decimal" placeholder="192.168.1.100" />
+  </div>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="port">Port</label>
+    <input class="homey-form-input" id="port" type="number" value="32000" />
+    <p class="homey-form-hint">Automation/IP port from the panel programming (often 32000).</p>
+  </div>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="encryptionKey">Encryption key</label>
+    <input class="homey-form-input" id="encryptionKey" type="text" inputmode="numeric" autocomplete="off" placeholder="Leave blank to keep current" />
+  </div>
+
+  <hr />
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="pin">User PIN <span style="opacity:.6">(x500)</span></label>
+    <input class="homey-form-input" id="pin" type="password" inputmode="numeric" autocomplete="off" placeholder="Leave blank to keep current" />
+  </div>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="username">Username <span style="opacity:.6">(x700)</span></label>
+    <input class="homey-form-input" id="username" type="text" autocomplete="off" />
+  </div>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="password">Password <span style="opacity:.6">(x700)</span></label>
+    <input class="homey-form-input" id="password" type="password" autocomplete="off" placeholder="Leave blank to keep current" />
+  </div>
+
+  <button id="saveButton" class="homey-button-primary-full" onclick="save()">Save &amp; reconnect</button>
+
+  <script type="application/javascript">
+    /* global Homey */
+    function val(id) {
+      var el = document.getElementById(id);
+      return el ? el.value : '';
+    }
+
+    function setVal(id, value) {
+      var el = document.getElementById(id);
+      if (el && value != null) el.value = value;
+    }
+
+    function setBusy(busy) {
+      var btn = document.getElementById('saveButton');
+      if (btn) btn.disabled = !!busy;
+    }
+
+    function save() {
+      var data = {
+        host: val('host'),
+        port: val('port'),
+        encryptionKey: val('encryptionKey'),
+        pin: val('pin'),
+        username: val('username'),
+        password: val('password'),
+      };
+
+      setBusy(true);
+      Homey.showLoadingOverlay();
+
+      Homey.emit('saveConnection', data)
+        .then(function () {
+          Homey.hideLoadingOverlay();
+          setBusy(false);
+          Homey.done();
+        })
+        .catch(function (err) {
+          Homey.hideLoadingOverlay();
+          setBusy(false);
+          Homey.alert((err && err.message) ? err.message : String(err), 'error');
+        });
+    }
+
+    var didSetup = false;
+
+    function prefill(current) {
+      if (!current) return;
+      setVal('host', current.host);
+      setVal('port', current.port);
+      setVal('username', current.username);
+    }
+
+    function setup(homeyObj) {
+      if (didSetup) return;
+      didSetup = true;
+      window.Homey = homeyObj;
+      homeyObj.setTitle('Update ATS connection');
+      // Primary: receive the values pushed by the backend on showView.
+      homeyObj.on('connection', prefill);
+      homeyObj.ready();
+      // Fallback: also request the values explicitly.
+      homeyObj.emit('getConnection', {}).then(prefill).catch(function () {});
+    }
+
+    // Homey either calls the global onHomeyReady(Homey) callback, OR exposes the
+    // Homey object globally without calling it (observed in repair views on some
+    // Homey versions). Support both, plus a short poll, and run setup only once.
+    function onHomeyReady(homeyReady) { setup(homeyReady); }
+
+    (function waitForHomey() {
+      if (didSetup) return;
+      if (typeof Homey !== 'undefined' && Homey && typeof Homey.ready === 'function') {
+        setup(Homey);
+        return;
+      }
+      var tries = 0;
+      var poll = setInterval(function () {
+        if (didSetup) { clearInterval(poll); return; }
+        if (typeof Homey !== 'undefined' && Homey && typeof Homey.ready === 'function') {
+          clearInterval(poll);
+          setup(Homey);
+        } else if (++tries > 50) {
+          clearInterval(poll);
+        }
+      }, 100);
+    })();
+  </script>
+</body>
+</html>

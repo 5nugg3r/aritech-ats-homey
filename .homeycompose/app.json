@@ -1,9 +1,11 @@
 {
   "id": "au.com.aritech.ats",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "compatibility": ">=12.2.0",
   "sdk": 3,
-  "platforms": ["local"],
+  "platforms": [
+    "local"
+  ],
   "name": {
     "en": "Aritech ATS",
     "nl": "Aritech ATS"
@@ -12,11 +14,27 @@
     "en": "Monitor and control Aritech ATS Advisor Advanced alarm panels over your local network.",
     "nl": "Bewaak en bedien Aritech ATS Advisor Advanced alarmsystemen via je lokale netwerk."
   },
-  "category": ["security"],
+  "category": [
+    "security"
+  ],
   "brandColor": "#E2001A",
   "tags": {
-    "en": ["alarm", "security", "aritech", "ats", "advisor", "intrusion"],
-    "nl": ["alarm", "beveiliging", "aritech", "ats", "advisor", "inbraak"]
+    "en": [
+      "alarm",
+      "security",
+      "aritech",
+      "ats",
+      "advisor",
+      "intrusion"
+    ],
+    "nl": [
+      "alarm",
+      "beveiliging",
+      "aritech",
+      "ats",
+      "advisor",
+      "inbraak"
+    ]
   },
   "permissions": [],
   "images": {

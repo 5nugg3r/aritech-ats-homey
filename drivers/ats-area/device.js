@@ -262,6 +262,30 @@ class AtsAreaDevice extends Homey.Device {
   }
 
   /**
+   * Apply a new connection configuration (from the repair flow) and reconnect.
+   * Releases the current shared connection under the OLD store values first,
+   * then persists the new values and reconnects with them.
+   * @param {object} config - Client config from the driver's _buildConfig.
+   * @returns {Promise<void>}
+   */
+  async applyNewConfig(config) {
+    // Release the shared connection under the current (old) store values first.
+    await this._release();
+
+    await this.setStoreValue('host', config.host);
+    await this.setStoreValue('port', config.port);
+    await this.setStoreValue('encryptionKey', config.encryptionKey);
+    await this.setStoreValue('pin', config.pin ?? null);
+    await this.setStoreValue('username', config.username ?? null);
+    await this.setStoreValue('password', config.password ?? null);
+
+    // Re-evaluate the weak-key warning and reconnect with the new config.
+    await this._checkEncryptionKeyStrength();
+    await this.setUnavailable('Reconnecting to panel…').catch(this.error);
+    await this._connect();
+  }
+
+  /**
    * Detach event handlers and release the shared connection.
    * @private
    */

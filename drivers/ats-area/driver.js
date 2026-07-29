@@ -83,6 +83,61 @@ class AtsAreaDriver extends Homey.Driver {
   }
 
   /**
+   * Repair: let the user update connection details (e.g. after the panel's IP
+   * address changed) without deleting and re-adding the device. Secret fields
+   * left blank keep their current stored value. On success the device is
+   * reconnected with the new configuration.
+   *
+   * @param {import('homey').Driver.PairSession} session
+   * @param {import('homey').Device} device
+   */
+  onRepair(session, device) {
+    const currentConnection = () => ({
+      host: device.getStoreValue('host') || '',
+      port: device.getStoreValue('port') || DEFAULT_PORT,
+      username: device.getStoreValue('username') || '',
+    });
+
+    // The repair view does not reliably receive the global onHomeyReady
+    // callback, so it reads the current values two ways: it listens for this
+    // push (sent when the view is shown) and also requests them via
+    // 'getConnection'.
+    session.setHandler('showView', async (viewId) => {
+      if (viewId === 'repair') {
+        session.emit('connection', currentConnection()).catch(() => {});
+      }
+    });
+
+    session.setHandler('getConnection', async () => currentConnection());
+
+    session.setHandler('saveConnection', async (data) => {
+      // Merge: a blank secret field means "keep the current value".
+      const merged = {
+        host: String(data.host || '').trim() || device.getStoreValue('host'),
+        port: data.port,
+        encryptionKey: String(data.encryptionKey || '').trim() || device.getStoreValue('encryptionKey') || '',
+        pin: String(data.pin || '').trim() || device.getStoreValue('pin') || '',
+        username: String(data.username || '').trim() || device.getStoreValue('username') || '',
+        password: String(data.password || '').trim() || device.getStoreValue('password') || '',
+      };
+
+      const config = this._buildConfig(merged);
+
+      const app = this.homey.app;
+      if (!app || !app.connections) {
+        throw new Error('App is not ready yet, please try again');
+      }
+
+      // Validate reachability + credentials before persisting anything.
+      await app.connections.probe(config);
+
+      // Persist and reconnect with the new configuration.
+      await device.applyNewConfig(config);
+      return true;
+    });
+  }
+
+  /**
    * Validate and normalise the connection form into an AritechClient config.
    * @private
    * @param {object} data - Raw form fields from the `connect` view.

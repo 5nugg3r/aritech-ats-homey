@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "title": { "en": "Panic", "nl": "Overval" },
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Panic alarm", "nl": "Overvalalarm" },
+  "insightsTitleFalse": { "en": "No panic", "nl": "Geen overval" },
+  "icon": "/assets/alarm_panic.svg"
+}

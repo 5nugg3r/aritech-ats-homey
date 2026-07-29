@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "title": { "en": "Medical", "nl": "Medisch" },
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Medical alarm", "nl": "Medisch alarm" },
+  "insightsTitleFalse": { "en": "No medical alarm", "nl": "Geen medisch alarm" },
+  "icon": "/assets/alarm_medical.svg"
+}

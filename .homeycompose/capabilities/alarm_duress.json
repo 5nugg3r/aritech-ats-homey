@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "title": { "en": "Duress", "nl": "Dwang" },
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Duress alarm", "nl": "Dwangalarm" },
+  "insightsTitleFalse": { "en": "No duress", "nl": "Geen dwang" },
+  "icon": "/assets/alarm_duress.svg"
+}

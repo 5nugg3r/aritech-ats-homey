@@ -172,7 +172,7 @@ class AtsAreaDevice extends Homey.Device {
    * @private
    */
   async _ensureCapabilities() {
-    for (const cap of ['alarm_armed', 'alarm_generic']) {
+    for (const cap of ['alarm_armed', 'alarm_generic', 'alarm_fire', 'alarm_tamper', 'alarm_panic', 'alarm_medical', 'alarm_duress']) {
       if (!this.hasCapability(cap)) {
         await this.addCapability(cap).catch(this.error);
       }
@@ -218,6 +218,12 @@ class AtsAreaDevice extends Homey.Device {
       this.setCapabilityValue('alarm_armed', armed).catch(this.error);
       // Warning indicator: only true when the area is actually in alarm.
       this.setCapabilityValue('alarm_generic', !!a.isAlarming).catch(this.error);
+      // Specific alarm types reported for this area.
+      this.setCapabilityValue('alarm_fire', !!a.hasFire).catch(this.error);
+      this.setCapabilityValue('alarm_tamper', !!a.isTampered).catch(this.error);
+      this.setCapabilityValue('alarm_panic', !!a.hasPanic).catch(this.error);
+      this.setCapabilityValue('alarm_medical', !!a.hasMedical).catch(this.error);
+      this.setCapabilityValue('alarm_duress', !!a.hasDuress).catch(this.error);
     }
   }
 

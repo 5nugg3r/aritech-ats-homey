@@ -68,7 +68,12 @@
       "capabilities": [
         "homealarm_state",
         "alarm_armed",
-        "alarm_generic"
+        "alarm_generic",
+        "alarm_fire",
+        "alarm_tamper",
+        "alarm_panic",
+        "alarm_medical",
+        "alarm_duress"
       ],
       "capabilitiesOptions": {
         "alarm_generic": {
@@ -125,13 +130,70 @@
       "setable": false,
       "insightsTitleTrue": {
         "en": "Armed",
-        "nl": "Scherp geschakeld"
+        "nl": "Ingeschakeld"
       },
       "insightsTitleFalse": {
         "en": "Disarmed",
         "nl": "Uitgeschakeld"
       },
       "icon": "/assets/alarm_armed.svg"
+    },
+    "alarm_duress": {
+      "type": "boolean",
+      "title": {
+        "en": "Duress",
+        "nl": "Dwang"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Duress alarm",
+        "nl": "Dwangalarm"
+      },
+      "insightsTitleFalse": {
+        "en": "No duress",
+        "nl": "Geen dwang"
+      },
+      "icon": "/assets/alarm_duress.svg"
+    },
+    "alarm_medical": {
+      "type": "boolean",
+      "title": {
+        "en": "Medical",
+        "nl": "Medisch"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Medical alarm",
+        "nl": "Medisch alarm"
+      },
+      "insightsTitleFalse": {
+        "en": "No medical alarm",
+        "nl": "Geen medisch alarm"
+      },
+      "icon": "/assets/alarm_medical.svg"
+    },
+    "alarm_panic": {
+      "type": "boolean",
+      "title": {
+        "en": "Panic",
+        "nl": "Overval"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Panic alarm",
+        "nl": "Overvalalarm"
+      },
+      "insightsTitleFalse": {
+        "en": "No panic",
+        "nl": "Geen overval"
+      },
+      "icon": "/assets/alarm_panic.svg"
     }
   }
 }

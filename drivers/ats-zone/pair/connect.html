@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="host">Panel IP address / hostname</label>
+    <input class="homey-form-input" id="host" type="text" inputmode="decimal" placeholder="192.168.1.100" />
+  </div>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="port">Port</label>
+    <input class="homey-form-input" id="port" type="number" value="32000" />
+    <p class="homey-form-hint">Automation/IP port from the panel programming (often 32000).</p>
+  </div>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="encryptionKey">Encryption key</label>
+    <input class="homey-form-input" id="encryptionKey" type="text" inputmode="numeric" autocomplete="off" placeholder="24 digits (x500) or 48 digits (x700)" />
+  </div>
+
+  <hr />
+  <p class="homey-form-hint">Log in with a <b>PIN</b> (x500 panels) <b>or</b> a <b>username &amp; password</b> (x700 “everon” panels). Use a dedicated user with arm/disarm rights.</p>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="pin">User PIN <span style="opacity:.6">(x500)</span></label>
+    <input class="homey-form-input" id="pin" type="password" inputmode="numeric" autocomplete="off" />
+  </div>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="username">Username <span style="opacity:.6">(x700)</span></label>
+    <input class="homey-form-input" id="username" type="text" autocomplete="off" />
+  </div>
+
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="password">Password <span style="opacity:.6">(x700)</span></label>
+    <input class="homey-form-input" id="password" type="password" autocomplete="off" placeholder="Defaults to the username" />
+  </div>
+
+  <button id="connectButton" class="homey-button-primary-full" onclick="connect()">Connect</button>
+
+  <script type="application/javascript">
+    /* global Homey */
+    function val(id) {
+      var el = document.getElementById(id);
+      return el ? el.value : '';
+    }
+
+    function setBusy(busy) {
+      var btn = document.getElementById('connectButton');
+      if (btn) btn.disabled = !!busy;
+    }
+
+    function connect() {
+      var data = {
+        host: val('host'),
+        port: val('port'),
+        encryptionKey: val('encryptionKey'),
+        pin: val('pin'),
+        username: val('username'),
+        password: val('password'),
+      };
+
+      setBusy(true);
+      Homey.showLoadingOverlay();
+
+      Homey.emit('probe', data)
+        .then(function () {
+          Homey.hideLoadingOverlay();
+          setBusy(false);
+          Homey.showView('list_devices');
+        })
+        .catch(function (err) {
+          Homey.hideLoadingOverlay();
+          setBusy(false);
+          Homey.alert((err && err.message) ? err.message : String(err), 'error');
+        });
+    }
+
+    function onHomeyReady(homeyReady) {
+      window.Homey = homeyReady;
+      Homey.setTitle('Connect to your ATS panel');
+      Homey.ready();
+    }
+  </script>
+</body>
+</html>

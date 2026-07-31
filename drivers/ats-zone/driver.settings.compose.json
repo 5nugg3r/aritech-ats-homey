@@ -1,0 +1,12 @@
+[
+  {
+    "id": "debug_logging",
+    "type": "checkbox",
+    "value": false,
+    "label": { "en": "Debug logging", "nl": "Debug-logging" },
+    "hint": {
+      "en": "Log zone state changes to the app log. Useful for troubleshooting; leave off during normal use.",
+      "nl": "Log zonestatuswijzigingen naar de app-log. Handig voor probleemoplossing; laat uit bij normaal gebruik."
+    }
+  }
+]

@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "au.com.aritech.ats",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -577,6 +577,69 @@
           "hint": {
             "en": "Log area and zone state changes to the app log. Useful for troubleshooting; leave off during normal use.",
             "nl": "Log area- en zonestatuswijzigingen naar de app-log. Handig voor probleemoplossing; laat uit bij normaal gebruik."
+          }
+        }
+      ]
+    },
+    {
+      "name": {
+        "en": "ATS Zone",
+        "nl": "ATS Zone"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "alarm_motion",
+        "alarm_generic",
+        "alarm_tamper"
+      ],
+      "capabilitiesOptions": {
+        "alarm_generic": {
+          "title": {
+            "en": "In alarm",
+            "nl": "In alarm"
+          }
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/ats-zone/assets/images/small.png",
+        "large": "/drivers/ats-zone/assets/images/large.png",
+        "xlarge": "/drivers/ats-zone/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "connect"
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "ats-zone",
+      "settings": [
+        {
+          "id": "debug_logging",
+          "type": "checkbox",
+          "value": false,
+          "label": {
+            "en": "Debug logging",
+            "nl": "Debug-logging"
+          },
+          "hint": {
+            "en": "Log zone state changes to the app log. Useful for troubleshooting; leave off during normal use.",
+            "nl": "Log zonestatuswijzigingen naar de app-log. Handig voor probleemoplossing; laat uit bij normaal gebruik."
           }
         }
       ]

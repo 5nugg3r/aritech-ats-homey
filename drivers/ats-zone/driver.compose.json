@@ -1,0 +1,36 @@
+{
+  "name": {
+    "en": "ATS Zone",
+    "nl": "ATS Zone"
+  },
+  "class": "sensor",
+  "capabilities": ["alarm_motion", "alarm_generic", "alarm_tamper"],
+  "capabilitiesOptions": {
+    "alarm_generic": {
+      "title": { "en": "In alarm", "nl": "In alarm" }
+    }
+  },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
+  "images": {
+    "small": "/drivers/ats-zone/assets/images/small.png",
+    "large": "/drivers/ats-zone/assets/images/large.png",
+    "xlarge": "/drivers/ats-zone/assets/images/xlarge.png"
+  },
+  "pair": [
+    {
+      "id": "connect"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

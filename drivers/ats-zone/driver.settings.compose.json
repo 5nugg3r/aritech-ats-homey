@@ -1,5 +1,22 @@
 [
   {
+    "id": "sensor_type",
+    "type": "dropdown",
+    "value": "auto",
+    "label": { "en": "Sensor type", "nl": "Sensortype" },
+    "hint": {
+      "en": "The panel does not report a zone's type, so choose how this zone is shown. 'Automatic' derives it from the zone name; pick a fixed type to override.",
+      "nl": "Het paneel geeft het zonetype niet door, dus kies hoe deze zone wordt getoond. 'Automatisch' leidt het af uit de zonenaam; kies een vast type om te overrulen."
+    },
+    "values": [
+      { "id": "auto", "label": { "en": "Automatic (from zone name)", "nl": "Automatisch (op zonenaam)" } },
+      { "id": "motion", "label": { "en": "Motion", "nl": "Beweging" } },
+      { "id": "contact", "label": { "en": "Contact", "nl": "Contact" } },
+      { "id": "fire", "label": { "en": "Fire", "nl": "Brand" } },
+      { "id": "generic", "label": { "en": "Generic", "nl": "Algemeen" } }
+    ]
+  },
+  {
     "id": "debug_logging",
     "type": "checkbox",
     "value": false,

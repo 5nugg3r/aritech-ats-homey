@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const { resolveZoneType, capsForType } = require('../../lib/zone-type');
 
 /**
  * A single ATS zone (detector), exposed to Homey as a read-only sensor:
@@ -17,16 +18,17 @@ class AtsZoneDevice extends Homey.Device {
     this._conn = null;
     this._zoneNumber = this.getStoreValue('zoneNumber');
 
-    // Ensure indicator capabilities exist on devices paired before they were
-    // added to the driver.
-    await this._ensureCapabilities();
+    // Resolve the sensor type and make sure the capability set matches it
+    // (also migrates devices paired before the type setting existed).
+    this._type = resolveZoneType(this.getSetting('sensor_type'), this.getName());
+    await this._applyType(this._type);
 
     // Stable, bound handlers so we can detach them later.
     this._onConnected = this._handleConnected.bind(this);
     this._onDisconnected = this._handleDisconnected.bind(this);
     this._onZoneChanged = this._handleZoneChanged.bind(this);
 
-    this.log(`ATS zone ${this._zoneNumber} init`);
+    this.log(`ATS zone ${this._zoneNumber} init (type: ${this._type})`);
 
     await this.setUnavailable('Connecting to panel…').catch(this.error);
 
@@ -111,6 +113,7 @@ class AtsZoneDevice extends Homey.Device {
   }
 
   /**
+   * Map a ZoneState onto the device's capabilities according to its type.
    * @private
    * @param {object} s - ZoneState flags.
    */
@@ -123,9 +126,30 @@ class AtsZoneDevice extends Homey.Device {
       isInhibited: s.isInhibited,
       hasFault: s.hasFault,
     });
-    this.setCapabilityValue('alarm_motion', !!s.isActive).catch(this.error);
-    this.setCapabilityValue('alarm_generic', !!s.isAlarming).catch(this.error);
-    this.setCapabilityValue('alarm_tamper', !!s.isTampered).catch(this.error);
+
+    const set = (cap, value) => {
+      if (this.hasCapability(cap)) this.setCapabilityValue(cap, value).catch(this.error);
+    };
+
+    set('alarm_tamper', !!s.isTampered);
+
+    switch (this._type) {
+      case 'contact':
+        set('alarm_contact', !!s.isActive);
+        set('alarm_generic', !!s.isAlarming);
+        break;
+      case 'fire':
+        set('alarm_fire', !!(s.isActive || s.isAlarming));
+        break;
+      case 'generic':
+        set('alarm_generic', !!(s.isActive || s.isAlarming));
+        break;
+      case 'motion':
+      default:
+        set('alarm_motion', !!s.isActive);
+        set('alarm_generic', !!s.isAlarming);
+        break;
+    }
   }
 
   /** @private */
@@ -137,15 +161,38 @@ class AtsZoneDevice extends Homey.Device {
   }
 
   /**
-   * Add capabilities that may be missing on devices paired with an older
-   * version of this driver. Safe to call on every init.
+   * Reconcile the device's capabilities to match the given sensor type: remove
+   * capabilities that no longer apply and add the ones that do (in order, so the
+   * primary indicator stays first). Safe to call repeatedly.
    * @private
+   * @param {'motion'|'contact'|'fire'|'generic'} type
    */
-  async _ensureCapabilities() {
-    for (const cap of ['alarm_motion', 'alarm_generic', 'alarm_tamper']) {
+  async _applyType(type) {
+    const desired = capsForType(type);
+    for (const cap of this.getCapabilities()) {
+      if (!desired.includes(cap)) {
+        await this.removeCapability(cap).catch(this.error);
+      }
+    }
+    for (const cap of desired) {
       if (!this.hasCapability(cap)) {
         await this.addCapability(cap).catch(this.error);
       }
+    }
+    this._type = type;
+  }
+
+  /**
+   * React to setting changes: when the sensor type changes, re-map the
+   * capabilities and re-apply the current zone state.
+   * @param {{ newSettings:object, changedKeys:string[] }} opts
+   * @returns {Promise<void>}
+   */
+  async onSettings({ newSettings, changedKeys }) {
+    if (changedKeys.includes('sensor_type')) {
+      const type = resolveZoneType(newSettings.sensor_type, this.getName());
+      await this._applyType(type);
+      this._syncFromCurrentState();
     }
   }
 

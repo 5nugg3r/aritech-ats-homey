@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const { guessZoneType, capsForType } = require('../../lib/zone-type');
 
 /**
  * Default TCP port for the ATS automation/IP interface. Configurable on the
@@ -63,10 +64,18 @@ class AtsZoneDriver extends Homey.Driver {
 
       return zones.map((zone) => {
         const zoneName = zone.name || `Zone ${zone.number}`;
+        // The panel does not report a zone's type; default it from the name and
+        // give the device the matching capability set (user-overridable later
+        // via the 'sensor_type' setting).
+        const type = guessZoneType(zoneName);
         return {
           name: zoneName,
           data: {
             id: `${info.serial || config.host}:zone:${zone.number}`,
+          },
+          capabilities: capsForType(type),
+          settings: {
+            sensor_type: type,
           },
           // Credentials are kept in the device store (not shown in the UI),
           // never in user-visible settings.

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" clip-rule="evenodd" fill="#E2001A"
-        d="M128 20 212 52V128c0 52-36 92-84 108-48-16-84-56-84-108V52L128 20Z
-           M116 168 80 132l16-16 20 20 44-44 16 16z"/>
+  <g fill="none" stroke="#0072BC" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="36" y="76" width="184" height="104" rx="20" stroke-width="10" />
+    <rect x="55" y="98" width="82" height="40" rx="6" stroke-width="6" />
+    <path stroke-width="4" d="M67 112 H121" />
+    <path stroke-width="4" d="M67 124 H105" />
+    <rect x="57" y="146" width="22" height="11" rx="5" stroke-width="4" />
+    <rect x="85" y="146" width="22" height="11" rx="5" stroke-width="4" />
+    <rect x="113" y="146" width="22" height="11" rx="5" stroke-width="4" />
+  </g>
+  <g fill="#0072BC">
+    <circle cx="157" cy="98" r="5" /><circle cx="178" cy="98" r="5" /><circle cx="199" cy="98" r="5" />
+    <circle cx="157" cy="118" r="5" /><circle cx="178" cy="118" r="5" /><circle cx="199" cy="118" r="5" />
+    <circle cx="157" cy="138" r="5" /><circle cx="178" cy="138" r="5" /><circle cx="199" cy="138" r="5" />
+    <circle cx="157" cy="158" r="5" /><circle cx="178" cy="158" r="5" /><circle cx="199" cy="158" r="5" />
+  </g>
 </svg>

@@ -1,6 +1,6 @@
 {
   "name": "au.com.aritech.ats",
-  "version": "0.1.0",
+  "version": "0.8.1",
   "description": "Homey app to monitor and control Aritech ATS Advisor Advanced alarm panels over the local network.",
   "main": "app.js",
   "license": "AGPL-3.0-or-later",

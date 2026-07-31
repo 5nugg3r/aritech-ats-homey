@@ -1,0 +1,6 @@
+{
+  "0.8.1": {
+    "en": "Monitor and control your Aritech ATS Advisor Advanced panel from Homey over the local network: arm/disarm areas (full and part-arm), live area and zone status, and alarm indicators (intrusion, fire, tamper, panic, medical, duress). Includes Flow cards for arming, force-arm, night-arm and inhibiting/uninhibiting zones, a repair option to reconfigure a device without removing it, and readable error messages for panel, network and encryption-key problems.",
+    "nl": "Bewaak en bedien je Aritech ATS Advisor Advanced-paneel vanuit Homey via het lokale netwerk: gebieden in-/uitschakelen (volledig en deels), live gebied- en zonestatus, en alarmindicatoren (inbraak, brand, sabotage, paniek, medisch, dwang). Inclusief Flow-kaarten voor inschakelen, geforceerd inschakelen, nachtstand en het overbruggen van zones, een herstel-optie om een apparaat opnieuw te configureren zonder het te verwijderen, en leesbare foutmeldingen voor paneel-, netwerk- en encryptiesleutelproblemen."
+  }
+}

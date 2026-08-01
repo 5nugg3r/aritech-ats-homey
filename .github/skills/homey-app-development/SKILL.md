@@ -134,6 +134,18 @@ state, mirror it to a boolean:
 - When adding capabilities to an existing driver, also `addCapability()` in
   `onInit` (guarded by `hasCapability()`) so already-paired devices get them.
 
+### Per-device tile icons (pairing)
+
+- Set a per-device icon via the `icon` field on the `list_devices` device object.
+  Its path is **relative to `/drivers/<driverId>/assets/`** — use `icon: "/contact.svg"`,
+  NOT `"/drivers/<id>/assets/contact.svg"` (double-prefix, silently no-op).
+  (`/userdata/...` paths are the only exception, supported since Homey v12.3.0.)
+- There is **no runtime `setIcon()`**: the tile icon is fixed at pairing. A device
+  setting can swap capabilities (`add/removeCapability`) but not the icon — changing
+  the icon on an existing device requires re-pairing.
+- `list_devices` device objects can override driver defaults with: `icon`,
+  `capabilities`, `capabilitiesOptions`, plus `settings` and `store`.
+
 ## Pairing
 
 Define the flow in `driver.compose.json`:

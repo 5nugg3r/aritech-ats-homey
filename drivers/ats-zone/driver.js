@@ -10,6 +10,17 @@ const { guessZoneType, capsForType } = require('../../lib/zone-type');
 const DEFAULT_PORT = 32000;
 
 /**
+ * Per-type tile icons (motion/generic use the driver's default icon.svg). Set
+ * at pairing from the guessed type. Paths are relative to the driver's
+ * `assets/` folder, and the tile icon is fixed after pairing.
+ * @type {Record<string, string>}
+ */
+const ZONE_ICONS = {
+  contact: '/contact.svg',
+  fire: '/fire.svg',
+};
+
+/**
  * Driver for ATS zones. Each paired device represents one zone (detector) of a
  * panel and exposes it as a read-only sensor (motion / in-alarm / tamper).
  *
@@ -68,7 +79,7 @@ class AtsZoneDriver extends Homey.Driver {
         // give the device the matching capability set (user-overridable later
         // via the 'sensor_type' setting).
         const type = guessZoneType(zoneName);
-        return {
+        const device = {
           name: zoneName,
           data: {
             id: `${info.serial || config.host}:zone:${zone.number}`,
@@ -90,6 +101,8 @@ class AtsZoneDriver extends Homey.Driver {
             serial: info.serial || null,
           },
         };
+        if (ZONE_ICONS[type]) device.icon = ZONE_ICONS[type];
+        return device;
       });
     });
   }

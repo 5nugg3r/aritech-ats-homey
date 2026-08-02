@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "title": { "en": "Bypass", "nl": "Overbruggen" },
+  "uiComponent": "toggle",
+  "uiQuickAction": true,
+  "getable": true,
+  "setable": true,
+  "insightsTitleTrue": { "en": "Active", "nl": "Actief" },
+  "insightsTitleFalse": { "en": "Bypassed", "nl": "Overbrugd" }
+}

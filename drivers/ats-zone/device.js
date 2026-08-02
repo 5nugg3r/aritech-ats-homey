@@ -28,6 +28,9 @@ class AtsZoneDevice extends Homey.Device {
     this._onDisconnected = this._handleDisconnected.bind(this);
     this._onZoneChanged = this._handleZoneChanged.bind(this);
 
+    // Tile quick-action: toggle ON = zone active (monitored), OFF = bypassed.
+    this.registerCapabilityListener('zone_active', (value) => this._setActive(value));
+
     this.log(`ATS zone ${this._zoneNumber} init (type: ${this._type})`);
 
     await this.setUnavailable('Connecting to panel…').catch(this.error);
@@ -101,6 +104,24 @@ class AtsZoneDevice extends Homey.Device {
   }
 
   /**
+   * Enable (un-inhibit) or bypass (inhibit) this zone on the panel.
+   * @private
+   * @param {boolean} value - true = active/monitored, false = bypassed.
+   * @returns {Promise<void>}
+   */
+  async _setActive(value) {
+    if (!this._conn) throw new Error('Not connected to panel');
+    try {
+      if (value) await this._conn.uninhibitZone(this._zoneNumber);
+      else await this._conn.inhibitZone(this._zoneNumber);
+    } catch (err) {
+      const action = value ? 'restore' : 'bypass';
+      this.error(`${action} zone ${this._zoneNumber} failed:`, err);
+      throw new Error(`Could not ${action} zone ${this._zoneNumber}: ${err.message}`);
+    }
+  }
+
+  /**
    * Update this zone's capabilities from a zoneChanged event.
    * @private
    * @param {{ id:number, name?:string, newData?:object }} event
@@ -132,6 +153,7 @@ class AtsZoneDevice extends Homey.Device {
     };
 
     set('alarm_tamper', !!s.isTampered);
+    set('zone_active', !s.isInhibited);
 
     switch (this._type) {
       case 'contact':

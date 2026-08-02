@@ -4,7 +4,7 @@
     "nl": "ATS Zone"
   },
   "class": "sensor",
-  "capabilities": ["alarm_motion", "alarm_generic", "alarm_tamper"],
+  "capabilities": ["alarm_motion", "alarm_generic", "alarm_tamper", "zone_active"],
   "capabilitiesOptions": {
     "alarm_generic": {
       "title": { "en": "In alarm", "nl": "In alarm" }

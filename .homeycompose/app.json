@@ -17,6 +17,7 @@
   "category": [
     "security"
   ],
+
   "brandColor": "#0072BC",
   "tags": {
     "en": [
@@ -43,8 +44,8 @@
     "xlarge": "/assets/images/xlarge.png"
   },
   "author": {
-    "name": "5nugg3r",
-    "email": "i.bliekendaal+homeyaritech@gmail.com"
+    "name": "Ignaece Bliekendaal",
+    "email": "5nugg3r+homeyaritech@protonmail.com"
   },
   "contributors": {
     "developers": [

@@ -590,7 +590,8 @@
       "capabilities": [
         "alarm_motion",
         "alarm_generic",
-        "alarm_tamper"
+        "alarm_tamper",
+        "zone_active"
       ],
       "capabilitiesOptions": {
         "alarm_generic": {
@@ -771,6 +772,25 @@
         "nl": "Geen overval"
       },
       "icon": "/assets/alarm_panic.svg"
+    },
+    "zone_active": {
+      "type": "boolean",
+      "title": {
+        "en": "Bypass",
+        "nl": "Overbruggen"
+      },
+      "uiComponent": "toggle",
+      "uiQuickAction": true,
+      "getable": true,
+      "setable": true,
+      "insightsTitleTrue": {
+        "en": "Active",
+        "nl": "Actief"
+      },
+      "insightsTitleFalse": {
+        "en": "Bypassed",
+        "nl": "Overbrugd"
+      }
     }
   }
 }

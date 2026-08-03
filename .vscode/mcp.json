@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"Homey Apps SDK": {
+			"url": "https://apps.developer.homey.app/~gitbook/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}

@@ -12,8 +12,8 @@
     "nl": "Aritech ATS"
   },
   "description": {
-    "en": "Monitor and control Aritech ATS Advisor Advanced alarm panels over your local network.",
-    "nl": "Bewaak en bedien Aritech ATS Advisor Advanced alarmsystemen via je lokale netwerk."
+    "en": "Your alarm system, now part of your smart home.",
+    "nl": "Je alarmsysteem, nu onderdeel van je smart home."
   },
   "category": [
     "security"
@@ -44,8 +44,8 @@
     "xlarge": "/assets/images/xlarge.png"
   },
   "author": {
-    "name": "5nugg3r",
-    "email": "i.bliekendaal+homeyaritech@gmail.com"
+    "name": "Ignaece Bliekendaal",
+    "email": "5nugg3r+homeyaritech@protonmail.com"
   },
   "contributors": {
     "developers": [
@@ -369,8 +369,8 @@
       {
         "id": "arm_night",
         "title": {
-          "en": "Arm night (part 2)",
-          "nl": "Nacht activeren (deel 2)"
+          "en": "Arm night mode",
+          "nl": "Nachtstand activeren"
         },
         "hint": {
           "en": "Arm this area in the night / part set 2 mode.",
@@ -391,8 +391,8 @@
           "nl": "Geforceerd activeren"
         },
         "titleFormatted": {
-          "en": "Force arm ([[mode]])",
-          "nl": "Geforceerd activeren ([[mode]])"
+          "en": "Force arm [[mode]]",
+          "nl": "Geforceerd activeren [[mode]]"
         },
         "hint": {
           "en": "Arm this area, forcing past faults, active or inhibited zones.",

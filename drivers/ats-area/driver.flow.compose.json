@@ -80,13 +80,13 @@
   "actions": [
     {
       "id": "arm_night",
-      "title": { "en": "Arm night (part 2)", "nl": "Nacht activeren (deel 2)" },
+      "title": { "en": "Arm night mode", "nl": "Nachtstand activeren" },
       "hint": { "en": "Arm this area in the night / part set 2 mode.", "nl": "Activeer dit gebied in de nacht- / deel 2-stand." }
     },
     {
       "id": "force_arm",
       "title": { "en": "Force arm", "nl": "Geforceerd activeren" },
-      "titleFormatted": { "en": "Force arm ([[mode]])", "nl": "Geforceerd activeren ([[mode]])" },
+      "titleFormatted": { "en": "Force arm [[mode]]", "nl": "Geforceerd activeren [[mode]]" },
       "hint": { "en": "Arm this area, forcing past faults, active or inhibited zones.", "nl": "Activeer dit gebied en negeer storingen, actieve of overbrugde zones." },
       "args": [
         {

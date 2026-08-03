@@ -1,14 +1,3 @@
-Aritech ATS
+Bring your Aritech ATS Advisor Advanced alarm panel into Homey and keep your home's security at your fingertips. Arm and disarm areas, follow area and zone status in real time over your local network, and give the detectors that have guarded your home for years a second role: a decades-old PIR detector becomes a motion sensor you can build Flows on, so your security system works together with the rest of your smart home.
 
-Monitor and control your Aritech ATS Advisor Advanced alarm panel directly from
-Homey, over your local network. Arm and disarm areas, follow area and zone status
-in real time, and build Flows around your security system.
-
-This is an unofficial, community-developed app. It is not affiliated with,
-endorsed by, or supported by Aritech or KGS (Kidde Global Services).
-
-Requirements:
-- An Aritech ATS Advisor Advanced panel with a network (IP) connection.
-- The automation/IP protocol enabled on the panel.
-- The panel encryption key and a login (PIN for x500 panels, or username and
-  password for x700 "everon" panels).
+This is an unofficial, community-developed app and is not affiliated with, endorsed by, or supported by Aritech or KGS (Kidde Global Services). It requires an Aritech ATS Advisor Advanced panel with a network connection and the automation/IP protocol enabled, along with the panel encryption key and a login.

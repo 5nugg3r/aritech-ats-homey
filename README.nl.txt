@@ -1,15 +1,3 @@
-Aritech ATS
+Breng je Aritech ATS Advisor Advanced alarmsysteem naar Homey en houd de beveiliging van je huis binnen handbereik. Schakel gebieden in en uit, volg de status van gebieden en zones in realtime via je lokale netwerk, en geef de sensoren die je huis al jaren bewaken een tweede rol: een decennia-oude PIR-detector wordt een bewegingsmelder waarop je Flows kunt bouwen, zodat je beveiligingssysteem samenwerkt met de rest van je smart home.
 
-Bewaak en bedien je Aritech ATS Advisor Advanced alarmsysteem rechtstreeks vanuit
-Homey, via je lokale netwerk. Schakel gebieden in en uit, volg de status van
-gebieden en zones in realtime, en bouw Flows rond je beveiligingssysteem.
-
-Dit is een onofficiële, door de community ontwikkelde app. De app is niet
-gelieerd aan, goedgekeurd door of ondersteund door Aritech of KGS (Kidde Global
-Services).
-
-Vereisten:
-- Een Aritech ATS Advisor Advanced paneel met een netwerkverbinding (IP).
-- Het automatiserings-/IP-protocol ingeschakeld op het paneel.
-- De encryptiesleutel van het paneel en een login (pincode voor x500-panelen, of
-  gebruikersnaam en wachtwoord voor x700 "everon"-panelen).
+Dit is een onofficiële, door de community ontwikkelde app en is niet gelieerd aan, goedgekeurd door of ondersteund door Aritech of KGS (Kidde Global Services). De app vereist een Aritech ATS Advisor Advanced paneel met een netwerkverbinding en het automatiserings-/IP-protocol ingeschakeld, samen met de encryptiesleutel van het paneel en een login.

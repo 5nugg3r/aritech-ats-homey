@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "title": { "en": "Inhibited zones", "nl": "Overbrugde zones" },
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Zones inhibited", "nl": "Zones overbrugd" },
+  "insightsTitleFalse": { "en": "No inhibited zones", "nl": "Geen overbrugde zones" },
+  "icon": "/assets/zones_inhibited.svg"
+}

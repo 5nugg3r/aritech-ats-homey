@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": { "en": "Internal siren", "nl": "Binnensirene" },
+  "uiComponent": null,
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Internal siren on", "nl": "Binnensirene aan" },
+  "insightsTitleFalse": { "en": "Internal siren off", "nl": "Binnensirene uit" }
+}

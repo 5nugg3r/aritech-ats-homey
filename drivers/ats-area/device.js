@@ -211,7 +211,7 @@ class AtsAreaDevice extends Homey.Device {
    * @private
    */
   async _ensureCapabilities() {
-    for (const cap of ['alarm_armed', 'alarm_generic', 'alarm_fire', 'alarm_tamper', 'alarm_panic', 'alarm_medical', 'alarm_duress']) {
+    for (const cap of ['alarm_armed', 'ready_to_arm', 'zones_open', 'zone_faults', 'zones_inhibited', 'zones_isolated', 'alarm_generic', 'alarm_fire', 'alarm_tamper', 'alarm_panic', 'alarm_medical', 'alarm_duress', 'siren_internal', 'siren_external', 'strobe_active', 'buzzer_active']) {
       if (!this.hasCapability(cap)) {
         await this.addCapability(cap).catch(this.error);
       }
@@ -263,6 +263,15 @@ class AtsAreaDevice extends Homey.Device {
       // cannot be device indicators, so mirror it to a boolean).
       const armed = value === 'armed' || value === 'partially_armed';
       this.setCapabilityValue('alarm_armed', armed).catch(this.error);
+      // Panel reports whether the area can be armed right now (no active zones
+      // or faults blocking it).
+      this.setCapabilityValue('ready_to_arm', !!a.isReadyToArm).catch(this.error);
+      // The two conditions that usually explain why an area is not ready to arm.
+      this.setCapabilityValue('zones_open', !!a.hasActiveZones).catch(this.error);
+      this.setCapabilityValue('zone_faults', !!a.hasZoneFaults).catch(this.error);
+      // Zones the panel is deliberately ignoring while armed.
+      this.setCapabilityValue('zones_inhibited', !!a.hasInhibitedZones).catch(this.error);
+      this.setCapabilityValue('zones_isolated', !!a.hasIsolatedZones).catch(this.error);
       // Warning indicator: only true when the area is actually in alarm.
       this.setCapabilityValue('alarm_generic', !!a.isAlarming).catch(this.error);
       // Specific alarm types reported for this area.
@@ -271,6 +280,11 @@ class AtsAreaDevice extends Homey.Device {
       this.setCapabilityValue('alarm_panic', !!a.hasPanic).catch(this.error);
       this.setCapabilityValue('alarm_medical', !!a.hasMedical).catch(this.error);
       this.setCapabilityValue('alarm_duress', !!a.hasDuress).catch(this.error);
+      // Audible and visual signalling driven by the panel.
+      this.setCapabilityValue('siren_internal', !!a.isInternalSiren).catch(this.error);
+      this.setCapabilityValue('siren_external', !!a.isExternalSiren).catch(this.error);
+      this.setCapabilityValue('strobe_active', !!a.isStrobeActive).catch(this.error);
+      this.setCapabilityValue('buzzer_active', !!a.isBuzzerActive).catch(this.error);
     }
   }
 

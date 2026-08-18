@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "au.com.aritech.ats",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "compatibility": ">=12.2.0",
   "sdk": 3,
   "platforms": [
@@ -335,6 +335,60 @@
     ],
     "conditions": [
       {
+        "id": "area_is_ready_to_arm",
+        "title": {
+          "en": "The area !{{is|isn't}} ready to arm",
+          "nl": "Het gebied !{{is|is niet}} klaar om in te schakelen"
+        },
+        "hint": {
+          "en": "Checks whether the panel reports this area as ready to arm, meaning no active zones or faults are blocking it.",
+          "nl": "Controleert of het paneel dit gebied als klaar om in te schakelen meldt, dus zonder actieve zones of storingen die dit blokkeren."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "area_has_open_zones",
+        "title": {
+          "en": "The area !{{has|doesn't have}} open zones",
+          "nl": "Het gebied !{{heeft|heeft geen}} open zones"
+        },
+        "hint": {
+          "en": "Checks whether one or more zones in this area are currently active (open).",
+          "nl": "Controleert of er op dit moment een of meer zones in dit gebied actief (open) zijn."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
+        "id": "area_has_zone_faults",
+        "title": {
+          "en": "The area !{{has|doesn't have}} zone faults",
+          "nl": "Het gebied !{{heeft|heeft geen}} zonestoringen"
+        },
+        "hint": {
+          "en": "Checks whether one or more zones in this area report a fault.",
+          "nl": "Controleert of er een of meer zones in dit gebied een storing melden."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ats-area"
+          }
+        ]
+      },
+      {
         "id": "zone_is_open",
         "title": {
           "en": "Zone !{{is|isn't}} open",
@@ -517,12 +571,21 @@
       "capabilities": [
         "homealarm_state",
         "alarm_armed",
+        "ready_to_arm",
+        "zones_open",
+        "zone_faults",
+        "zones_inhibited",
+        "zones_isolated",
         "alarm_generic",
         "alarm_fire",
         "alarm_tamper",
         "alarm_panic",
         "alarm_medical",
-        "alarm_duress"
+        "alarm_duress",
+        "siren_internal",
+        "siren_external",
+        "strobe_active",
+        "buzzer_active"
       ],
       "capabilitiesOptions": {
         "alarm_generic": {
@@ -773,6 +836,97 @@
       },
       "icon": "/assets/alarm_panic.svg"
     },
+    "buzzer_active": {
+      "type": "boolean",
+      "title": {
+        "en": "Buzzer",
+        "nl": "Zoemer"
+      },
+      "uiComponent": null,
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Buzzer on",
+        "nl": "Zoemer aan"
+      },
+      "insightsTitleFalse": {
+        "en": "Buzzer off",
+        "nl": "Zoemer uit"
+      }
+    },
+    "ready_to_arm": {
+      "type": "boolean",
+      "title": {
+        "en": "Ready to arm",
+        "nl": "Klaar om in te schakelen"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Ready to arm",
+        "nl": "Klaar om in te schakelen"
+      },
+      "insightsTitleFalse": {
+        "en": "Not ready to arm",
+        "nl": "Niet klaar om in te schakelen"
+      },
+      "icon": "/assets/ready_to_arm.svg"
+    },
+    "siren_external": {
+      "type": "boolean",
+      "title": {
+        "en": "External siren",
+        "nl": "Buitensirene"
+      },
+      "uiComponent": null,
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "External siren on",
+        "nl": "Buitensirene aan"
+      },
+      "insightsTitleFalse": {
+        "en": "External siren off",
+        "nl": "Buitensirene uit"
+      }
+    },
+    "siren_internal": {
+      "type": "boolean",
+      "title": {
+        "en": "Internal siren",
+        "nl": "Binnensirene"
+      },
+      "uiComponent": null,
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Internal siren on",
+        "nl": "Binnensirene aan"
+      },
+      "insightsTitleFalse": {
+        "en": "Internal siren off",
+        "nl": "Binnensirene uit"
+      }
+    },
+    "strobe_active": {
+      "type": "boolean",
+      "title": {
+        "en": "Strobe",
+        "nl": "Flitslicht"
+      },
+      "uiComponent": null,
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Strobe on",
+        "nl": "Flitslicht aan"
+      },
+      "insightsTitleFalse": {
+        "en": "Strobe off",
+        "nl": "Flitslicht uit"
+      }
+    },
     "zone_active": {
       "type": "boolean",
       "title": {
@@ -791,6 +945,81 @@
         "en": "Bypassed",
         "nl": "Overbrugd"
       }
+    },
+    "zone_faults": {
+      "type": "boolean",
+      "title": {
+        "en": "Zone fault",
+        "nl": "Zonestoring"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Zone fault",
+        "nl": "Zonestoring"
+      },
+      "insightsTitleFalse": {
+        "en": "No zone faults",
+        "nl": "Geen zonestoringen"
+      },
+      "icon": "/assets/zone_faults.svg"
+    },
+    "zones_inhibited": {
+      "type": "boolean",
+      "title": {
+        "en": "Inhibited zones",
+        "nl": "Overbrugde zones"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Zones inhibited",
+        "nl": "Zones overbrugd"
+      },
+      "insightsTitleFalse": {
+        "en": "No inhibited zones",
+        "nl": "Geen overbrugde zones"
+      },
+      "icon": "/assets/zones_inhibited.svg"
+    },
+    "zones_isolated": {
+      "type": "boolean",
+      "title": {
+        "en": "Isolated zones",
+        "nl": "Geïsoleerde zones"
+      },
+      "uiComponent": null,
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Zones isolated",
+        "nl": "Zones geïsoleerd"
+      },
+      "insightsTitleFalse": {
+        "en": "No isolated zones",
+        "nl": "Geen geïsoleerde zones"
+      }
+    },
+    "zones_open": {
+      "type": "boolean",
+      "title": {
+        "en": "Open zones",
+        "nl": "Open zones"
+      },
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "insightsTitleTrue": {
+        "en": "Zones open",
+        "nl": "Zones open"
+      },
+      "insightsTitleFalse": {
+        "en": "All zones closed",
+        "nl": "Alle zones gesloten"
+      },
+      "icon": "/assets/zones_open.svg"
     }
   }
 }

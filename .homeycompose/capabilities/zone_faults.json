@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "title": { "en": "Zone fault", "nl": "Zonestoring" },
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Zone fault", "nl": "Zonestoring" },
+  "insightsTitleFalse": { "en": "No zone faults", "nl": "Geen zonestoringen" },
+  "icon": "/assets/zone_faults.svg"
+}

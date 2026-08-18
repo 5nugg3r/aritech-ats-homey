@@ -36,6 +36,16 @@ class AtsAreaDriver extends Homey.Driver {
     zoneIsOpen.registerRunListener(async (args) => args.device.isZoneOpen(Number(args.zone.number)));
     zoneIsOpen.registerArgumentAutocompleteListener('zone', async (query, args) => args.device.zoneAutocomplete(query));
 
+    // Condition: can this area be armed right now?
+    this.homey.flow.getConditionCard('area_is_ready_to_arm')
+      .registerRunListener(async (args) => args.device.getCapabilityValue('ready_to_arm') === true);
+
+    // Conditions: the two things that typically block arming.
+    for (const [cardId, capability] of [['area_has_open_zones', 'zones_open'], ['area_has_zone_faults', 'zone_faults']]) {
+      this.homey.flow.getConditionCard(cardId)
+        .registerRunListener(async (args) => args.device.getCapabilityValue(capability) === true);
+    }
+
     // Actions: area arming variants.
     this.homey.flow.getActionCard('arm_night')
       .registerRunListener(async (args) => args.device.armNight());

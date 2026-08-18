@@ -69,6 +69,21 @@
   ],
   "conditions": [
     {
+      "id": "area_is_ready_to_arm",
+      "title": { "en": "The area !{{is|isn't}} ready to arm", "nl": "Het gebied !{{is|is niet}} klaar om in te schakelen" },
+      "hint": { "en": "Checks whether the panel reports this area as ready to arm, meaning no active zones or faults are blocking it.", "nl": "Controleert of het paneel dit gebied als klaar om in te schakelen meldt, dus zonder actieve zones of storingen die dit blokkeren." }
+    },
+    {
+      "id": "area_has_open_zones",
+      "title": { "en": "The area !{{has|doesn't have}} open zones", "nl": "Het gebied !{{heeft|heeft geen}} open zones" },
+      "hint": { "en": "Checks whether one or more zones in this area are currently active (open).", "nl": "Controleert of er op dit moment een of meer zones in dit gebied actief (open) zijn." }
+    },
+    {
+      "id": "area_has_zone_faults",
+      "title": { "en": "The area !{{has|doesn't have}} zone faults", "nl": "Het gebied !{{heeft|heeft geen}} zonestoringen" },
+      "hint": { "en": "Checks whether one or more zones in this area report a fault.", "nl": "Controleert of er een of meer zones in dit gebied een storing melden." }
+    },
+    {
       "id": "zone_is_open",
       "title": { "en": "Zone !{{is|isn't}} open", "nl": "Zone !{{is|is niet}} open" },
       "titleFormatted": { "en": "Zone [[zone]] !{{is|isn't}} open", "nl": "Zone [[zone]] !{{is|is niet}} open" },

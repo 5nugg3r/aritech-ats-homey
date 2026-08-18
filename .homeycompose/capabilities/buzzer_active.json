@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": { "en": "Buzzer", "nl": "Zoemer" },
+  "uiComponent": null,
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Buzzer on", "nl": "Zoemer aan" },
+  "insightsTitleFalse": { "en": "Buzzer off", "nl": "Zoemer uit" }
+}

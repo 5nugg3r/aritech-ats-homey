@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": { "en": "Isolated zones", "nl": "Geïsoleerde zones" },
+  "uiComponent": null,
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Zones isolated", "nl": "Zones geïsoleerd" },
+  "insightsTitleFalse": { "en": "No isolated zones", "nl": "Geen geïsoleerde zones" }
+}

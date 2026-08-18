@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "title": { "en": "Open zones", "nl": "Open zones" },
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Zones open", "nl": "Zones open" },
+  "insightsTitleFalse": { "en": "All zones closed", "nl": "Alle zones gesloten" },
+  "icon": "/assets/zones_open.svg"
+}

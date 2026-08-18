@@ -1,0 +1,9 @@
+{
+  "type": "boolean",
+  "title": { "en": "Strobe", "nl": "Flitslicht" },
+  "uiComponent": null,
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Strobe on", "nl": "Flitslicht aan" },
+  "insightsTitleFalse": { "en": "Strobe off", "nl": "Flitslicht uit" }
+}

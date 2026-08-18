@@ -11,7 +11,9 @@ Monitor and control your panel directly from Homey: arm and disarm areas, follow
 - **Arm / disarm areas** — full arm and part-arm, mapped to Homey's native alarm state.
 - **Live status** — area and zone state pushed in real time (COS events).
 - **Alarm indicators** — intrusion, fire, tamper, panic, medical and duress.
-- **Flow cards** — triggers, conditions and actions for arming, force-arm, night-arm and inhibiting/uninhibiting zones.
+- **Area readiness** — ready to arm, open zones, zone faults and inhibited zones.
+- **Signalling state** — internal siren, external siren, strobe, buzzer and isolated zones, hidden from the device tile but available for Flows and Insights.
+- **Flow cards** — triggers, conditions and actions for arming, force-arm, night-arm, inhibiting/uninhibiting zones and checking whether an area can be armed.
 - **Repair** — reconfigure a paired device (host/port/credentials) without removing it.
 - **Readable errors** — panel, network and encryption-key problems are shown as clear messages instead of raw codes.
 - **Optional per-device debug logging** — off by default.
@@ -36,7 +38,7 @@ homey app run
 
 - Built with the Homey Apps SDK v3 / Homey Compose; `app.json` is generated from `.homeycompose/` and per-driver compose files.
 - Validate: `homey app validate --level debug` (or `--level publish`).
-- The ATS protocol is implemented by the vendored [`aritech-js`](https://github.com/sebakerckhof/aritech-ha) library (`lib/aritech/`).
+- The ATS protocol is implemented by the vendored [`aritech-js`](https://github.com/sebakerckhof/aritech-js) library (`lib/aritech/`).
 
 ## License
 

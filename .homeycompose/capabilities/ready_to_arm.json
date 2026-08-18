@@ -1,0 +1,10 @@
+{
+  "type": "boolean",
+  "title": { "en": "Ready to arm", "nl": "Klaar om in te schakelen" },
+  "uiComponent": "sensor",
+  "getable": true,
+  "setable": false,
+  "insightsTitleTrue": { "en": "Ready to arm", "nl": "Klaar om in te schakelen" },
+  "insightsTitleFalse": { "en": "Not ready to arm", "nl": "Niet klaar om in te schakelen" },
+  "icon": "/assets/ready_to_arm.svg"
+}

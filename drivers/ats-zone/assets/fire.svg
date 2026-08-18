@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#000000" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="128" cy="128" r="92" />
-    <circle cx="128" cy="128" r="54" />
-    <path d="M190 128 H212" />
-    <path d="M172 172 L187 187" />
-    <path d="M128 190 V212" />
-    <path d="M84 172 L69 187" />
-    <path d="M66 128 H44" />
-    <path d="M84 84 L69 69" />
-    <path d="M128 66 V44" />
-    <path d="M172 84 L187 69" />
+<svg width="960" height="960" viewBox="0 0 960 960" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="40" d="M100 535 A380 311 0 0 0 860 535 L860 425 A380 311 0 0 0 100 425 Z" />
+    <path stroke-width="20" d="M120 435.4 A380 311 0 0 1 840 435.4" />
+    <ellipse stroke-width="20" cx="480" cy="535" rx="190" ry="155.5" />
+    <path stroke-width="10" d="M715.6 535 L806.8 535 M646.6 671.4 L711.1 724.2 M480 727.8 L480 802.5 M313.4 671.4 L248.9 724.2 M244.4 535 L153.2 535 M313.4 398.6 L248.9 345.8 M480 342.2 L480 267.5 M646.6 398.6 L711.1 345.8" />
+    <ellipse stroke-width="10" cx="480" cy="635" rx="30" ry="25" />
   </g>
-  <circle cx="128" cy="128" r="12" fill="#000000" />
 </svg>

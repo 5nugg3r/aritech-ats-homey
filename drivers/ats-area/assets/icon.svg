@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <g transform="translate(128 128) scale(1.28) translate(-128 -128)">
-    <g fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="36" y="76" width="184" height="104" rx="20" stroke-width="10" />
-      <rect x="55" y="98" width="82" height="40" rx="6" stroke-width="6" />
-      <path stroke-width="4" d="M67 112 H121" />
-      <path stroke-width="4" d="M67 124 H105" />
-      <rect x="57" y="146" width="22" height="11" rx="5" stroke-width="4" />
-      <rect x="85" y="146" width="22" height="11" rx="5" stroke-width="4" />
-      <rect x="113" y="146" width="22" height="11" rx="5" stroke-width="4" />
+<svg width="960" height="960" viewBox="0 0 960 960" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Perspective: horizon runs through the middle of the housing (y475) with
+         the vanishing point at (4679, 475). Every horizontal line converges on
+         it, so lines above the horizon fall to the right and lines below rise.
+         The back box is drawn thinner and shorter than the front panel, so the
+         device reads as a panel on a recess rather than a solid block. -->
+    <path stroke-width="20" d="M250 320 L182.2 328.7 A14 14 0 0 0 170 342.6 L170 607.4 A14 14 0 0 0 182.2 621.3 L250 630" />
+    <path stroke-width="40" d="M297.3 252.4 L837.3 279.8 A45 45 0 0 1 880 324.8 L880 625.2 A45 45 0 0 1 837.3 670.2 L297.3 697.6 A45 45 0 0 1 250 652.7 L250 297.3 A45 45 0 0 1 297.3 252.4 Z" />
+    <!-- display -->
+    <path stroke-width="20" d="M322.8 310.9 L538.8 319 A22 22 0 0 1 560 341 L560 476.6 A22 22 0 0 1 538.1 498.6 L322.1 499.9 A22 22 0 0 1 300 477.9 L300 332.9 A22 22 0 0 1 322.8 310.9 Z" />
+    <path stroke-width="10" d="M330 370 L510 374.3" />
+    <path stroke-width="10" d="M330 425 L470 426.6" />
+    <!-- function keys; skewY tilts the ovals without standing the verticals up -->
+    <g stroke-width="10" transform="skewY(-1.183)">
+      <ellipse cx="348" cy="571.6" rx="36" ry="19" />
+      <ellipse cx="432" cy="571.6" rx="36" ry="19" />
+      <ellipse cx="516" cy="571.7" rx="36" ry="19" />
     </g>
-    <g fill="#000000">
-      <circle cx="157" cy="98" r="5" /><circle cx="178" cy="98" r="5" /><circle cx="199" cy="98" r="5" />
-      <circle cx="157" cy="118" r="5" /><circle cx="178" cy="118" r="5" /><circle cx="199" cy="118" r="5" />
-      <circle cx="157" cy="138" r="5" /><circle cx="178" cy="138" r="5" /><circle cx="199" cy="138" r="5" />
-      <circle cx="157" cy="158" r="5" /><circle cx="178" cy="158" r="5" /><circle cx="199" cy="158" r="5" />
+    <!-- keypad -->
+    <g stroke-width="10">
+      <circle cx="650" cy="350" r="28" /><circle cx="730" cy="352.5" r="28" /><circle cx="810" cy="355" r="28" />
+      <circle cx="650" cy="428" r="28" /><circle cx="730" cy="428.9" r="28" /><circle cx="810" cy="429.9" r="28" />
+      <circle cx="650" cy="506" r="28" /><circle cx="730" cy="505.4" r="28" /><circle cx="810" cy="504.8" r="28" />
+      <circle cx="650" cy="584" r="28" /><circle cx="730" cy="581.8" r="28" /><circle cx="810" cy="579.7" r="28" />
     </g>
   </g>
 </svg>

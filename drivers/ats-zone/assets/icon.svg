@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="#000000" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M102 40 H154 Q168 40 171 55 L188 195 Q192 210 176 210 H80 Q64 210 68 195 L85 55 Q88 40 102 40 Z" />
-    <path d="M83 96 H173" />
-    <circle cx="128" cy="158" r="34" />
+<svg width="960" height="960" viewBox="0 0 960 960" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" transform="rotate(6 480 480)">
+    <path stroke-width="40" d="M323.06 90.66 L719.94 123.19 A60 60 0 0 1 775 182.95 L775 777.05 A60 60 0 0 1 719.93 836.81 L323.06 869.34 A60 60 0 0 1 307.05 868.5 L233.91 854.72 A60 60 0 0 1 185 795.73 L185 164.27 A60 60 0 0 1 233.91 105.28 L307.05 91.5 A60 60 0 0 1 323.06 90.66 Z" />
+    <path stroke-width="20" d="M345 112.5 A60 60 0 0 0 315 164.5 L315 795.5 A60 60 0 0 0 345 847.5" />
+    <path stroke-width="10" d="M404.87 499.87 L674.87 498.73 A30 30 0 0 1 705 528.73 L705 744.83 A30 30 0 0 1 677.01 774.76 L407.02 792.86 A30 30 0 0 1 375 762.92 L375 529.87 A30 30 0 0 1 404.87 499.87 Z" />
+    <g stroke-width="10" transform="skewY(2.817)">
+      <ellipse cx="400" cy="230.32" rx="22.4" ry="24" />
+    </g>
   </g>
 </svg>

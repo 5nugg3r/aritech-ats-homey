@@ -1,4 +1,8 @@
 {
+  "0.10.1": {
+    "en": "Changed: the icons for the motion detector, door contact, smoke detector and keypad have been redrawn, so each device is easier to tell apart in your device list and while adding a device.",
+    "nl": "Gewijzigd: de iconen van de bewegingsmelder, het deurcontact, de rookmelder en het bedienpaneel zijn opnieuw getekend, zodat de apparaten beter uit elkaar te houden zijn in je apparatenlijst en tijdens het toevoegen van een apparaat."
+  },
   "0.10.0": {
     "en": "New: areas now show whether they are ready to arm, and when they are not, whether that is because zones are still open, report a fault, or are inhibited. The state of the internal siren, external siren, strobe, buzzer and isolated zones is available for Flows and Insights, so you can respond to what your panel is doing. Matching Flow conditions let you check an area before arming, for example to send a reminder naming what is still open instead of running into a failed arm attempt. The panic and duress indicators have clearer icons.",
     "nl": "Nieuw: gebieden tonen nu of ze klaar zijn om in te schakelen, en zo niet, of dat komt doordat er zones openstaan, een storing melden of overbrugd zijn. De status van de binnensirene, buitensirene, het flitslicht, de zoemer en geïsoleerde zones is beschikbaar voor Flows en Insights, zodat je kunt reageren op wat je paneel doet. Met de bijbehorende Flow-voorwaarden kun je een gebied controleren vóór het inschakelen, bijvoorbeeld om een herinnering te sturen over wat er nog openstaat in plaats van een mislukte inschakelpoging. De indicatoren voor overval en dwang hebben duidelijkere iconen."

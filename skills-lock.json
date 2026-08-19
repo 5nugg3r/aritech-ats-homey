@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "codeql": {
+      "source": "trailofbits/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/static-analysis/skills/codeql/SKILL.md",
+      "computedHash": "de4f9832b11d3fa5d2e82a7f16165e38f02336f86911cfc23edb5929a97129bf"
+    }
+  }
+}

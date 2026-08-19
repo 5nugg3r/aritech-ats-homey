@@ -2,6 +2,7 @@
 
 const Homey = require('homey');
 const { DEFAULT_PORT, buildPanelConfig } = require('../../lib/panel-config');
+const { isPrivateHost, requiresKeyReconfirmation } = require('../../lib/host-checks');
 
 /**
  * Driver for ATS areas. Each paired device represents one area of a panel and
@@ -149,9 +150,23 @@ class AtsAreaDriver extends Homey.Driver {
     session.setHandler('getConnection', async () => currentConnection());
 
     session.setHandler('saveConnection', async (data) => {
+      const currentHost = device.getStoreValue('host');
+      const newHost = String(data.host || '').trim() || currentHost;
+
+      // Blank secret fields mean "keep the current value", which combined with a
+      // new address would send the stored credentials to a different machine.
+      if (requiresKeyReconfirmation(currentHost, newHost, data.encryptionKey)) {
+        throw new Error(
+          'You changed the panel address, so please re-enter the encryption key to confirm this is your panel.',
+        );
+      }
+      if (!isPrivateHost(newHost)) {
+        this.log(`Repair: ${newHost} is a public address; the ATS protocol is not meant to leave the local network`);
+      }
+
       // Merge: a blank secret field means "keep the current value".
       const merged = {
-        host: String(data.host || '').trim() || device.getStoreValue('host'),
+        host: newHost,
         port: data.port,
         encryptionKey: String(data.encryptionKey || '').trim() || device.getStoreValue('encryptionKey') || '',
         pin: String(data.pin || '').trim() || device.getStoreValue('pin') || '',

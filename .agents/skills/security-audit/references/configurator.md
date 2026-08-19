@@ -22,14 +22,26 @@ Goal: analyze the target repository and produce `.github/security-audit.config.m
    12; no SQL/HTML/JS/LDAP → the matching parts of 8.
 6. **Set Report language** (match the repo/user; default English unless the repo or user is clearly in
    another language) and the **Report output path**.
-7. **Write** `.github/security-audit.config.md`, print a short summary of the choices, and ask the user to
+7. **Ask whether the report goes into version control** — do not decide this alone. Use `AskUserQuestion`
+   with the two options below and record the answer as *Report in version control*. Say which way you
+   lean and why: a finished report names, with line references, how the security of a running system can
+   be defeated, so a public repository turns it into an attack manual. State the repository's current
+   visibility if you can determine it.
+   - **Keep it out of git (`no`)** — recommended when the repository is public, may become public, or is
+     referenced as the public source of a released product. Also add the report path pattern to
+     `.gitignore` so a later run cannot land in a commit by accident.
+   - **Commit it (`yes`)** — defensible for a repository that is private and stays private, where the
+     history of findings across runs is worth having.
+8. **Write** `.github/security-audit.config.md`, print a short summary of the choices, and ask the user to
    **review and commit** it.
 
 ## Notes
 
 - **Under-scope N/A.** When unsure whether a control applies, do **not** mark it N/A in the config — leave
   it for the audit to judge per control.
+- **Never answer the version-control question yourself.** It weighs disclosure risk against auditability,
+  and only the repository owner knows where the code will end up.
 - Keep the config **small and stable**; churn here undermines reproducibility.
 
 ---
-**Configurator version:** 1.0
+**Configurator version:** 1.1

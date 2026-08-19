@@ -32,8 +32,8 @@ format-converted working copy for auditing. Do not redistribute the modified `.m
 derivative under the No-Derivatives terms.
 
 ## Per-repository configuration
-The repo-specific settings (scope, application type, CVSS context, language, output path) live in
-**`.github/security-audit.config.md`** in the target repo — never in this skill.
+The repo-specific settings (scope, application type, CVSS context, language, output path, and whether the
+report is committed) live in **`.github/security-audit.config.md`** in the target repo — never in this skill.
 
 ## Workflow
 1. **Ensure configuration exists.** Look for `.github/security-audit.config.md`.
@@ -48,6 +48,8 @@ The repo-specific settings (scope, application type, CVSS context, language, out
    an **expired** or CVSS-escalated acceptance is reported as **needs re-review**.
 4. **Run the audit** per the method, using the configuration and the register, and write the report to the
    *Report output path*. Never overwrite the checklist.
+5. **Honour *Report in version control*.** When it is `no`, write the report but leave it untracked, verify
+   the path is ignored, and say so. Never commit or stage a report the configuration excludes.
 
 ## Reproducibility
 Generate the configuration **once** and commit it (re-running the configurator each audit adds variance).
@@ -55,4 +57,4 @@ For a deterministic run, pin the model and set `temperature = 0`; record model, 
 version and the audited commit SHA in the report header.
 
 ---
-**Skill version:** 1.1.0 · **Checklist:** Certified Secure Web App Secure Development v5.1
+**Skill version:** 1.2.0 · **Checklist:** Certified Secure Web App Secure Development v5.1

@@ -5,3 +5,5 @@
 env.json
 node_modules/
 .homeybuild/
+.agents/
+static_analysis_codeql_*/

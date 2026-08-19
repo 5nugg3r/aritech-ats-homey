@@ -1,4 +1,8 @@
 {
+  "0.11.0": {
+    "en": "Changed: the tile no longer keeps showing an arm state the panel never confirmed. After two minutes it returns to the state the panel actually reports and explains why, so a failed arming is no longer hidden behind the exit countdown. Setting up and repairing a device is stricter: an empty password field is no longer taken to mean your username, and pointing an existing device at a different panel address now requires the encryption key again, so credentials are never sent to another machine on their own. Keys and PIN codes no longer appear in the app's diagnostic logs.",
+    "nl": "Gewijzigd: de tegel blijft niet langer een inschakelstand tonen die het paneel nooit bevestigd heeft. Na twee minuten keert hij terug naar de stand die het paneel werkelijk meldt, met uitleg waarom, zodat een mislukte inschakeling niet meer schuilgaat achter de uitlooptijd. Het instellen en herstellen van een apparaat is strenger: een leeg wachtwoordveld wordt niet meer opgevat als je gebruikersnaam, en een bestaand apparaat naar een ander paneeladres verwijzen vereist opnieuw de encryptiesleutel, zodat inloggegevens nooit vanzelf naar een andere machine gaan. Sleutels en pincodes verschijnen niet meer in de diagnoselogs van de app."
+  },
   "0.10.1": {
     "en": "Changed: the icons for the motion detector, door contact, smoke detector and keypad have been redrawn, and both drivers now show a photo of the real device while you add one, so devices are easier to tell apart.",
     "nl": "Gewijzigd: de iconen van de bewegingsmelder, het deurcontact, de rookmelder en het bedienpaneel zijn opnieuw getekend, en beide drivers tonen tijdens het toevoegen nu een foto van het echte apparaat, zodat apparaten beter uit elkaar te houden zijn."

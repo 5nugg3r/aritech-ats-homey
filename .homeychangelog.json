@@ -1,7 +1,7 @@
 {
   "0.10.1": {
-    "en": "Changed: the icons for the motion detector, door contact, smoke detector and keypad have been redrawn, so each device is easier to tell apart in your device list and while adding a device.",
-    "nl": "Gewijzigd: de iconen van de bewegingsmelder, het deurcontact, de rookmelder en het bedienpaneel zijn opnieuw getekend, zodat de apparaten beter uit elkaar te houden zijn in je apparatenlijst en tijdens het toevoegen van een apparaat."
+    "en": "Changed: the icons for the motion detector, door contact, smoke detector and keypad have been redrawn, and both drivers now show a photo of the real device while you add one, so devices are easier to tell apart.",
+    "nl": "Gewijzigd: de iconen van de bewegingsmelder, het deurcontact, de rookmelder en het bedienpaneel zijn opnieuw getekend, en beide drivers tonen tijdens het toevoegen nu een foto van het echte apparaat, zodat apparaten beter uit elkaar te houden zijn."
   },
   "0.10.0": {
     "en": "New: areas now show whether they are ready to arm, and when they are not, whether that is because zones are still open, report a fault, or are inhibited. The state of the internal siren, external siren, strobe, buzzer and isolated zones is available for Flows and Insights, so you can respond to what your panel is doing. Matching Flow conditions let you check an area before arming, for example to send a reminder naming what is still open instead of running into a failed arm attempt. The panic and duress indicators have clearer icons.",

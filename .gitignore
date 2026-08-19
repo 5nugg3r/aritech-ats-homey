@@ -152,3 +152,7 @@ static_analysis_codeql_*/
 
 # Private prompts (kept in a separate private git repo, not in the public repo)
 .github/prompts/
+
+# Security-auditrapporten blijven lokaal: ze beschrijven misbruikscenarios voor
+# dit alarmsysteem en horen niet in de broncode van de app.
+docs/security-audit-*.md

@@ -8,3 +8,6 @@ node_modules/
 .agents/
 static_analysis_codeql_*/
 skills-lock.json
+
+# Tests are development-only and must not ship in the app package
+test/

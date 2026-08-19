@@ -7,7 +7,8 @@
   "scripts": {
     "validate": "homey app validate",
     "run": "homey app run",
-    "build": "homey app build"
+    "build": "homey app build",
+    "test": "node --test \"test/**/*.test.js\""
   },
   "dependencies": {},
   "devDependencies": {},

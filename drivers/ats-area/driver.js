@@ -1,12 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
-
-/**
- * Default TCP port for the ATS automation/IP interface. This is configurable on
- * the panel, so it is only a starting point in the pairing form.
- */
-const DEFAULT_PORT = 32000;
+const { DEFAULT_PORT, buildPanelConfig } = require('../../lib/panel-config');
 
 /**
  * Driver for ATS areas. Each paired device represents one area of a panel and
@@ -187,31 +182,7 @@ class AtsAreaDriver extends Homey.Driver {
    * @returns {object} Client config ({ host, port, encryptionKey, pin | username/password }).
    */
   _buildConfig(data = {}) {
-    const host = String(data.host || '').trim();
-    const port = Number.parseInt(data.port, 10) || DEFAULT_PORT;
-    const encryptionKey = String(data.encryptionKey || '').trim();
-    const pin = String(data.pin || '').trim();
-    const username = String(data.username || '').trim();
-    const password = String(data.password || '').trim();
-
-    if (!host) {
-      throw new Error('Host / IP address is required');
-    }
-    if (!/^\d+$/.test(encryptionKey) || (encryptionKey.length !== 24 && encryptionKey.length !== 48)) {
-      throw new Error('Encryption key must be 24 digits (x500) or 48 digits (x700)');
-    }
-    if (!username && !pin) {
-      throw new Error('Enter a PIN (x500) or a username and password (x700)');
-    }
-
-    const config = { host, port, encryptionKey };
-    if (username) {
-      config.username = username;
-      config.password = password || username; // panel default: password = username
-    } else {
-      config.pin = pin;
-    }
-    return config;
+    return buildPanelConfig(data);
   }
 }
 

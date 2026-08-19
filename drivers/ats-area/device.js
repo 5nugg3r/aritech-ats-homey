@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const { usesDefaultPassword } = require('../../lib/panel-config');
 
 /**
  * A single ATS area, exposed to Homey as a home alarm with the native
@@ -83,17 +84,29 @@ class AtsAreaDevice extends Homey.Device {
   }
 
   /**
-   * Show a non-blocking warning on the device card when the encryption key is
-   * trivially weak (e.g. all identical digits such as 24 zeros). Uses Homey's
-   * native setWarning banner and never blocks operation.
+   * Show a non-blocking warning on the device card when a credential is
+   * trivially weak: an encryption key of repeated or sequential digits, or an
+   * account still using the panel's factory default where the password equals
+   * the username. Never blocks operation.
    * @private
    */
   async _checkEncryptionKeyStrength() {
     const key = String(this.getStoreValue('encryptionKey') || '');
+    const warnings = [];
+
     if (key.length > 0 && this._isWeakEncryptionKey(key)) {
-      await this.setWarning(
+      warnings.push(
         'Weak encryption key: it is easy to guess (repeated or sequential digits). Set a stronger key in the panel and re-pair for better security.',
-      ).catch(this.error);
+      );
+    }
+    if (usesDefaultPassword(this.getStoreValue('username'), this.getStoreValue('password'))) {
+      warnings.push(
+        'This account still uses the panel default, where the password equals the username. Set a distinct password in the panel and repair this device.',
+      );
+    }
+
+    if (warnings.length > 0) {
+      await this.setWarning(warnings.join(' ')).catch(this.error);
     } else {
       await this.unsetWarning().catch(this.error);
     }

@@ -147,5 +147,8 @@ vite.config.ts.timestamp-*
 env.json
 userdata/
 
+# CodeQL scan output (database + SARIF, ~100MB per run)
+static_analysis_codeql_*/
+
 # Private prompts (kept in a separate private git repo, not in the public repo)
 .github/prompts/

@@ -42,10 +42,22 @@ Intentionally **not** copied:
 
 ## Modifications
 
-The copied files are **verbatim**, unmodified. A local `package.json` with
-`"type": "module"` was added so these files load as ES modules while the rest of
-the Homey app remains CommonJS. The app loads this library via a dynamic
-`import('../../lib/aritech/index.js')`.
+A local `package.json` with `"type": "module"` was added so these files load as
+ES modules while the rest of the Homey app remains CommonJS. The app loads this
+library via a dynamic `import('../../lib/aritech/index.js')`.
+
+The copied files are otherwise upstream's, **except** for the changes below.
+This folder is invisible to Dependabot, so this list is the only record; keep it
+current, and re-apply anything still listed here after pulling a new upstream
+version.
+
+| Change | Files | Upstream PR |
+|--------|-------|-------------|
+| Discard queued frames when creating a response waiter, so a timed-out request cannot desynchronise every later response | `aritech-client.js` | [#1](https://github.com/sebakerckhof/aritech-js/pull/1) |
+| Validate the message ID of a single (non-batch) response before applying the expected bit layout | `message-helpers.js` | [#1](https://github.com/sebakerckhof/aritech-js/pull/1) |
+| Destroy the socket after three consecutive keep-alive failures, so a dead session triggers a reconnect | `aritech-client.js` | [#1](https://github.com/sebakerckhof/aritech-js/pull/1) |
+| Redact key material and PINs in debug output (SHA-256 digest, length-only) | `aritech-client.js` | [#2](https://github.com/sebakerckhof/aritech-js/pull/2) |
+| Human-readable panel and socket error messages, and a clearer key-exchange timeout | `aritech-client.js` | not submitted |
 
 ## Runtime dependencies
 

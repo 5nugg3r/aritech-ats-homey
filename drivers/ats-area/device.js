@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const { ARM_CONFIRM_TIMEOUT_MS, unconfirmedArmOutcome } = require('../../lib/arm-confirmation');
 
 /**
  * A single ATS area, exposed to Homey as a home alarm with the native
@@ -16,6 +17,9 @@ class AtsAreaDevice extends Homey.Device {
   async onInit() {
     this._conn = null;
     this._areaNumber = this.getStoreValue('areaNumber');
+    this._lastObservedState = null;
+    this._pendingArm = null;
+    this._armConfirmTimer = null;
 
     // Ensure indicator capabilities exist on devices paired before they were
     // added to the driver.
@@ -256,6 +260,7 @@ class AtsAreaDevice extends Homey.Device {
         : { note: 'no .state on entry', keys: entry ? Object.keys(entry) : null },
     );
     if (value) {
+      this._noteObservedState(value);
       this.setCapabilityValue('homealarm_state', value).catch(this.error);
     }
     if (a) {
@@ -343,6 +348,51 @@ class AtsAreaDevice extends Homey.Device {
     // countdown). Reflect the requested state immediately so the tile does not
     // spring back; subsequent areaChanged events keep it in sync afterwards.
     await this.setCapabilityValue('homealarm_state', value).catch(this.error);
+    this._awaitArmConfirmation(value);
+  }
+
+  /**
+   * Record a state actually reported by the panel, and treat it as confirmation
+   * of a pending request.
+   * @private
+   * @param {string} value
+   */
+  _noteObservedState(value) {
+    this._lastObservedState = value;
+    if (this._pendingArm === value) this._clearArmConfirmation();
+  }
+
+  /**
+   * Start distrusting an optimistically shown state: if the panel has not
+   * confirmed it before the timeout, fall back to the last observed state and
+   * warn on the device card.
+   * @private
+   * @param {string} value
+   */
+  _awaitArmConfirmation(value) {
+    this._clearArmConfirmation();
+    this._pendingArm = value;
+    this._armConfirmTimer = this.homey.setTimeout(() => {
+      this._armConfirmTimer = null;
+      const outcome = unconfirmedArmOutcome(this._pendingArm, this._lastObservedState);
+      this._pendingArm = null;
+      if (!outcome) return;
+
+      this.error(`Area ${this._areaNumber}: ${outcome.message}`);
+      if (outcome.revertTo) {
+        this.setCapabilityValue('homealarm_state', outcome.revertTo).catch(this.error);
+      }
+      this.setWarning(outcome.message).catch(this.error);
+    }, ARM_CONFIRM_TIMEOUT_MS);
+  }
+
+  /** @private */
+  _clearArmConfirmation() {
+    if (this._armConfirmTimer) {
+      this.homey.clearTimeout(this._armConfirmTimer);
+      this._armConfirmTimer = null;
+    }
+    this._pendingArm = null;
   }
 
   async onUninit() {
@@ -439,6 +489,7 @@ class AtsAreaDevice extends Homey.Device {
    * @private
    */
   async _release() {
+    this._clearArmConfirmation();
     if (this._conn) {
       this._conn.removeListener('connected', this._onConnected);
       this._conn.removeListener('initialized', this._onConnected);

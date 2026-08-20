@@ -58,6 +58,7 @@
     "url": "https://github.com/5nugg3r/aritech-ats-homey/issues"
   },
   "source": "https://github.com/5nugg3r/aritech-ats-homey",
+  "homeyCommunityTopicId": 158562,
   "flow": {
     "triggers": [
       {

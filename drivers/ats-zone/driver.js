@@ -25,6 +25,17 @@ const ZONE_ICONS = {
  */
 class AtsZoneDriver extends Homey.Driver {
   async onInit() {
+    this.zoneBypassedTrigger = this.homey.flow.getDeviceTriggerCard('zone_bypassed');
+    this.zoneRestoredTrigger = this.homey.flow.getDeviceTriggerCard('zone_restored');
+
+    this.homey.flow.getConditionCard('zone_is_bypassed')
+      .registerRunListener(async (args) => args.device.getCapabilityValue('zone_active') === false);
+
+    this.homey.flow.getActionCard('zone_bypass')
+      .registerRunListener(async (args) => args.device.setBypass(true));
+    this.homey.flow.getActionCard('zone_restore')
+      .registerRunListener(async (args) => args.device.setBypass(false));
+
     this.log('ATS Zone driver initialized');
   }
 

@@ -26,11 +26,18 @@ class AtsAreaDriver extends Homey.Driver {
     this.zoneClosedTrigger = this.homey.flow.getDeviceTriggerCard('zone_closed');
     this.zoneAlarmTrigger = this.homey.flow.getDeviceTriggerCard('zone_alarm');
     this.zoneTamperTrigger = this.homey.flow.getDeviceTriggerCard('zone_tamper');
+    this.zoneInhibitedTrigger = this.homey.flow.getDeviceTriggerCard('zone_inhibited');
+    this.zoneUninhibitedTrigger = this.homey.flow.getDeviceTriggerCard('zone_uninhibited');
 
     // Condition: is a zone open?
     const zoneIsOpen = this.homey.flow.getConditionCard('zone_is_open');
     zoneIsOpen.registerRunListener(async (args) => args.device.isZoneOpen(Number(args.zone.number)));
     zoneIsOpen.registerArgumentAutocompleteListener('zone', async (query, args) => args.device.zoneAutocomplete(query));
+
+    // Condition: is a zone bypassed?
+    const zoneIsInhibited = this.homey.flow.getConditionCard('zone_is_inhibited');
+    zoneIsInhibited.registerRunListener(async (args) => args.device.isZoneInhibited(Number(args.zone.number)));
+    zoneIsInhibited.registerArgumentAutocompleteListener('zone', async (query, args) => args.device.zoneAutocomplete(query));
 
     // Condition: can this area be armed right now?
     this.homey.flow.getConditionCard('area_is_ready_to_arm')

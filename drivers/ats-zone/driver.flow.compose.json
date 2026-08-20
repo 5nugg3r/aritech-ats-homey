@@ -1,0 +1,33 @@
+{
+  "triggers": [
+    {
+      "id": "zone_bypassed",
+      "title": { "en": "The zone was bypassed", "nl": "De zone is overbrugd" },
+      "hint": { "en": "Triggers when this zone is inhibited on the panel, so it is ignored while armed.", "nl": "Wordt geactiveerd wanneer deze zone op het paneel wordt overbrugd, zodat hij tijdens inschakeling wordt genegeerd." }
+    },
+    {
+      "id": "zone_restored",
+      "title": { "en": "The zone was restored", "nl": "De zone is hersteld" },
+      "hint": { "en": "Triggers when this zone is no longer inhibited and is monitored again.", "nl": "Wordt geactiveerd wanneer deze zone niet langer overbrugd is en weer wordt bewaakt." }
+    }
+  ],
+  "conditions": [
+    {
+      "id": "zone_is_bypassed",
+      "title": { "en": "The zone !{{is|isn't}} bypassed", "nl": "De zone !{{is|is niet}} overbrugd" },
+      "hint": { "en": "Checks whether this zone is currently inhibited on the panel.", "nl": "Controleert of deze zone op dit moment op het paneel is overbrugd." }
+    }
+  ],
+  "actions": [
+    {
+      "id": "zone_bypass",
+      "title": { "en": "Bypass this zone", "nl": "Deze zone overbruggen" },
+      "hint": { "en": "Inhibit this zone so the panel ignores it while armed.", "nl": "Overbrug deze zone zodat het paneel hem tijdens inschakeling negeert." }
+    },
+    {
+      "id": "zone_restore",
+      "title": { "en": "Restore this zone", "nl": "Deze zone herstellen" },
+      "hint": { "en": "Remove the inhibit from this zone so it is monitored again.", "nl": "Hef de overbrugging van deze zone op zodat hij weer wordt bewaakt." }
+    }
+  ]
+}

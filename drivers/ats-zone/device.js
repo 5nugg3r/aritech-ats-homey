@@ -122,6 +122,31 @@ class AtsZoneDevice extends Homey.Device {
   }
 
   /**
+   * Bypass or restore this zone from a Flow. Routing through the capability
+   * listener keeps the tile in step with the action.
+   * @param {boolean} bypassed - true = bypass (inhibit), false = restore.
+   * @returns {Promise<void>}
+   */
+  async setBypass(bypassed) {
+    await this.triggerCapabilityListener('zone_active', !bypassed);
+  }
+
+  /**
+   * Write the bypass capability and fire the matching Flow trigger on a change.
+   * @private
+   * @param {boolean} active - true = monitored, false = bypassed.
+   */
+  _updateBypass(active) {
+    if (!this.hasCapability('zone_active')) return;
+    const was = this.getCapabilityValue('zone_active');
+    this.setCapabilityValue('zone_active', active).catch(this.error);
+    // Null means the value was never set, so this is the first reading.
+    if (was === null || was === active) return;
+    const card = active ? this.driver.zoneRestoredTrigger : this.driver.zoneBypassedTrigger;
+    if (card) card.trigger(this, {}).catch(this.error);
+  }
+
+  /**
    * Update this zone's capabilities from a zoneChanged event.
    * @private
    * @param {{ id:number, name?:string, newData?:object }} event
@@ -153,7 +178,10 @@ class AtsZoneDevice extends Homey.Device {
     };
 
     set('alarm_tamper', !!s.isTampered);
-    set('zone_active', !s.isInhibited);
+    set('alarm_battery', !!s.hasBatteryFault);
+    // Isolated counts as out of service too, otherwise the tile claims a zone
+    // is being watched while the panel ignores it.
+    this._updateBypass(!(s.isInhibited || s.isIsolated));
 
     switch (this._type) {
       case 'contact':

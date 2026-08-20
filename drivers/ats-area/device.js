@@ -220,6 +220,8 @@ class AtsAreaDevice extends Homey.Device {
     if (!newS.isActive && oldS.isActive) d.zoneClosedTrigger.trigger(this, tokens).catch(this.error);
     if (newS.isAlarming && !oldS.isAlarming) d.zoneAlarmTrigger.trigger(this, tokens).catch(this.error);
     if (newS.isTampered && !oldS.isTampered) d.zoneTamperTrigger.trigger(this, tokens).catch(this.error);
+    if (newS.isInhibited && !oldS.isInhibited) d.zoneInhibitedTrigger.trigger(this, tokens).catch(this.error);
+    if (!newS.isInhibited && oldS.isInhibited) d.zoneUninhibitedTrigger.trigger(this, tokens).catch(this.error);
   }
 
   /**
@@ -458,6 +460,18 @@ class AtsAreaDevice extends Homey.Device {
     const entry = map[zoneNum];
     const zs = entry && entry.state ? entry.state : entry;
     return !!(zs && zs.isActive);
+  }
+
+  /**
+   * Whether a zone is currently inhibited (bypassed) on the panel.
+   * @param {number} zoneNum
+   * @returns {boolean}
+   */
+  isZoneInhibited(zoneNum) {
+    const map = this._conn && this._conn.getZoneStates ? this._conn.getZoneStates() : {};
+    const entry = map[zoneNum];
+    const zs = entry && entry.state ? entry.state : entry;
+    return !!(zs && zs.isInhibited);
   }
 
   /**

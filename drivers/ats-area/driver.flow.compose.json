@@ -65,6 +65,24 @@
         { "name": "zone", "type": "number", "title": { "en": "Zone", "nl": "Zone" }, "example": 3 },
         { "name": "zone_name", "type": "string", "title": { "en": "Zone name", "nl": "Zonenaam" }, "example": { "en": "Front door", "nl": "Voordeur" } }
       ]
+    },
+    {
+      "id": "zone_inhibited",
+      "title": { "en": "A zone was bypassed", "nl": "Een zone is overbrugd" },
+      "hint": { "en": "Triggers when a zone in this area is inhibited, so the panel ignores it while armed.", "nl": "Wordt geactiveerd wanneer een zone in dit gebied wordt overbrugd, zodat het paneel hem tijdens inschakeling negeert." },
+      "tokens": [
+        { "name": "zone", "type": "number", "title": { "en": "Zone", "nl": "Zone" }, "example": 3 },
+        { "name": "zone_name", "type": "string", "title": { "en": "Zone name", "nl": "Zonenaam" }, "example": { "en": "Front door", "nl": "Voordeur" } }
+      ]
+    },
+    {
+      "id": "zone_uninhibited",
+      "title": { "en": "A zone was restored", "nl": "Een zone is hersteld" },
+      "hint": { "en": "Triggers when a zone in this area is no longer inhibited and is monitored again.", "nl": "Wordt geactiveerd wanneer een zone in dit gebied niet langer overbrugd is en weer wordt bewaakt." },
+      "tokens": [
+        { "name": "zone", "type": "number", "title": { "en": "Zone", "nl": "Zone" }, "example": 3 },
+        { "name": "zone_name", "type": "string", "title": { "en": "Zone name", "nl": "Zonenaam" }, "example": { "en": "Front door", "nl": "Voordeur" } }
+      ]
     }
   ],
   "conditions": [
@@ -87,6 +105,14 @@
       "id": "zone_is_open",
       "title": { "en": "Zone !{{is|isn't}} open", "nl": "Zone !{{is|is niet}} open" },
       "titleFormatted": { "en": "Zone [[zone]] !{{is|isn't}} open", "nl": "Zone [[zone]] !{{is|is niet}} open" },
+      "args": [
+        { "name": "zone", "type": "autocomplete", "title": { "en": "Zone", "nl": "Zone" }, "placeholder": { "en": "Pick a zone…", "nl": "Kies een zone…" } }
+      ]
+    },
+    {
+      "id": "zone_is_inhibited",
+      "title": { "en": "Zone !{{is|isn't}} bypassed", "nl": "Zone !{{is|is niet}} overbrugd" },
+      "titleFormatted": { "en": "Zone [[zone]] !{{is|isn't}} bypassed", "nl": "Zone [[zone]] !{{is|is niet}} overbrugd" },
       "args": [
         { "name": "zone", "type": "autocomplete", "title": { "en": "Zone", "nl": "Zone" }, "placeholder": { "en": "Pick a zone…", "nl": "Kies een zone…" } }
       ]

@@ -9,5 +9,8 @@ node_modules/
 static_analysis_codeql_*/
 skills-lock.json
 
+# Documentation images belong to the repository, not to the app package
+docs/
+
 # Tests are development-only and must not ship in the app package
 test/

@@ -230,6 +230,13 @@ class AtsAreaDevice extends Homey.Device {
    * @private
    */
   async _ensureCapabilities() {
+    // A capability the manifest no longer defines leaves the device page blank,
+    // so drop the ones this driver has retired.
+    for (const cap of ['force_arm']) {
+      if (this.hasCapability(cap)) {
+        await this.removeCapability(cap).catch(this.error);
+      }
+    }
     for (const cap of ['alarm_armed', 'ready_to_arm', 'zones_open', 'zone_faults', 'zones_inhibited', 'zones_isolated', 'alarm_generic', 'alarm_fire', 'alarm_tamper', 'alarm_panic', 'alarm_medical', 'alarm_duress', 'siren_internal', 'siren_external', 'strobe_active', 'buzzer_active']) {
       if (!this.hasCapability(cap)) {
         await this.addCapability(cap).catch(this.error);
@@ -279,6 +286,7 @@ class AtsAreaDevice extends Homey.Device {
       this.setCapabilityValue('homealarm_state', value).catch(this.error);
     }
     if (a) {
+      this._updateDelayTriggers(a);
       // Status indicator: armed when fully or partially set (enum capabilities
       // cannot be device indicators, so mirror it to a boolean).
       const armed = value === 'armed' || value === 'partially_armed';
@@ -451,10 +459,32 @@ class AtsAreaDevice extends Homey.Device {
   }
 
   /**
-   * Whether a zone is currently open/active ('zone_is_open' condition).
-   * @param {number} zoneNum
-   * @returns {boolean}
+   * Fire the entry and exit delay triggers on both edges.
+   * @private
+   * @param {object} a - AreaState flags.
    */
+  _updateDelayTriggers(a) {
+    const exiting = !!a.isExiting;
+    const entering = !!a.isEntering;
+    // Undefined on the first reading, so a delay already running when the app
+    // starts does not fire a trigger.
+    if (this._wasExiting !== undefined) {
+      const d = this.driver;
+      // A countdown that stops says nothing on its own: entry can end in a
+      // disarm or in a siren. Report both, since the alarm may lag the delay.
+      const tokens = {
+        armed: !!(a.isFullSet || a.isPartiallySet || a.isPartiallySet2),
+        alarm: !!a.isAlarming,
+      };
+      if (exiting && !this._wasExiting) d.exitDelayTrigger.trigger(this).catch(this.error);
+      if (!exiting && this._wasExiting) d.exitDelayEndedTrigger.trigger(this, tokens).catch(this.error);
+      if (entering && !this._wasEntering) d.entryDelayTrigger.trigger(this).catch(this.error);
+      if (!entering && this._wasEntering) d.entryDelayEndedTrigger.trigger(this, tokens).catch(this.error);
+    }
+    this._wasExiting = exiting;
+    this._wasEntering = entering;
+  }
+
   /**
    * Whether the panel is counting down an entry or exit delay for this area.
    * The area already reports as armed during those seconds, so Flows need a way
@@ -468,6 +498,11 @@ class AtsAreaDevice extends Homey.Device {
     return !!(a && (a.isExiting || a.isEntering));
   }
 
+  /**
+   * Whether a zone is currently open/active ('zone_is_open' condition).
+   * @param {number} zoneNum
+   * @returns {boolean}
+   */
   isZoneOpen(zoneNum) {
     const map = this._conn && this._conn.getZoneStates ? this._conn.getZoneStates() : {};
     const entry = map[zoneNum];

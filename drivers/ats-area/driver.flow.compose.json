@@ -83,6 +83,34 @@
         { "name": "zone", "type": "number", "title": { "en": "Zone", "nl": "Zone" }, "example": 3 },
         { "name": "zone_name", "type": "string", "title": { "en": "Zone name", "nl": "Zonenaam" }, "example": { "en": "Front door", "nl": "Voordeur" } }
       ]
+    },
+    {
+      "id": "area_exit_delay_started",
+      "title": { "en": "The exit delay started", "nl": "De uitlooptijd is gestart" },
+      "hint": { "en": "Triggers when the panel starts counting down the exit delay, so you have the whole countdown to switch things off or close up.", "nl": "Wordt geactiveerd wanneer het paneel de uitlooptijd begint af te tellen, zodat je de hele aftelling hebt om dingen uit te zetten of af te sluiten." }
+    },
+    {
+      "id": "area_entry_delay_started",
+      "title": { "en": "The entry delay started", "nl": "De inlooptijd is gestart" },
+      "hint": { "en": "Triggers when the panel starts counting down the entry delay. Someone came in through an entry route and the alarm has not sounded yet, which makes this the earliest warning the panel can give.", "nl": "Wordt geactiveerd wanneer het paneel de inlooptijd begint af te tellen. Er is iemand via een entreeroute binnengekomen en het alarm is nog niet afgegaan, waarmee dit de vroegste waarschuwing is die het paneel kan geven." }
+    },
+    {
+      "id": "area_exit_delay_ended",
+      "title": { "en": "The exit delay ended", "nl": "De uitlooptijd is afgelopen" },
+      "hint": { "en": "Triggers when the exit countdown stops. The armed tag is yes when the countdown completed and the area is set, and no when it was cancelled.", "nl": "Wordt geactiveerd wanneer de uitlooptijd stopt. De tag ingeschakeld is ja als de aftelling is voltooid en het gebied scherp staat, en nee als hij is afgebroken." },
+      "tokens": [
+        { "name": "armed", "type": "boolean", "title": { "en": "Armed", "nl": "Ingeschakeld" }, "example": true },
+        { "name": "alarm", "type": "boolean", "title": { "en": "In alarm", "nl": "In alarm" }, "example": false }
+      ]
+    },
+    {
+      "id": "area_entry_delay_ended",
+      "title": { "en": "The entry delay ended", "nl": "De inlooptijd is afgelopen" },
+      "hint": { "en": "Triggers when the entry countdown stops. The armed tag is no when someone disarmed in time, and yes when the delay expired while the area stayed set. The alarm tag says whether the panel was already sounding at that moment.", "nl": "Wordt geactiveerd wanneer de inlooptijd stopt. De tag ingeschakeld is nee als er op tijd is uitgeschakeld, en ja als de tijd verstreken is terwijl het gebied scherp bleef staan. De tag in alarm zegt of het paneel op dat moment al afging." },
+      "tokens": [
+        { "name": "armed", "type": "boolean", "title": { "en": "Armed", "nl": "Ingeschakeld" }, "example": false },
+        { "name": "alarm", "type": "boolean", "title": { "en": "In alarm", "nl": "In alarm" }, "example": false }
+      ]
     }
   ],
   "conditions": [
@@ -100,6 +128,11 @@
       "id": "area_has_zone_faults",
       "title": { "en": "The area !{{has|doesn't have}} zone faults", "nl": "Het gebied !{{heeft|heeft geen}} zonestoringen" },
       "hint": { "en": "Checks whether one or more zones in this area report a fault.", "nl": "Controleert of er een of meer zones in dit gebied een storing melden." }
+    },
+    {
+      "id": "area_has_inhibited_zones",
+      "title": { "en": "The area !{{has|doesn't have}} bypassed zones", "nl": "Het gebied !{{heeft|heeft geen}} overbrugde zones" },
+      "hint": { "en": "Checks whether one or more zones in this area are bypassed. Bypassed zones do not block arming, so the area can be armed with gaps in its coverage.", "nl": "Controleert of er een of meer zones in dit gebied overbrugd zijn. Overbrugde zones blokkeren het inschakelen niet, dus het gebied kan scherp staan met gaten in de dekking." }
     },
     {
       "id": "area_in_delay",

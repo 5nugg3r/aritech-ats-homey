@@ -28,6 +28,10 @@ class AtsAreaDriver extends Homey.Driver {
     this.zoneTamperTrigger = this.homey.flow.getDeviceTriggerCard('zone_tamper');
     this.zoneInhibitedTrigger = this.homey.flow.getDeviceTriggerCard('zone_inhibited');
     this.zoneUninhibitedTrigger = this.homey.flow.getDeviceTriggerCard('zone_uninhibited');
+    this.exitDelayTrigger = this.homey.flow.getDeviceTriggerCard('area_exit_delay_started');
+    this.entryDelayTrigger = this.homey.flow.getDeviceTriggerCard('area_entry_delay_started');
+    this.exitDelayEndedTrigger = this.homey.flow.getDeviceTriggerCard('area_exit_delay_ended');
+    this.entryDelayEndedTrigger = this.homey.flow.getDeviceTriggerCard('area_entry_delay_ended');
 
     // Condition: is a zone open?
     const zoneIsOpen = this.homey.flow.getConditionCard('zone_is_open');
@@ -48,7 +52,7 @@ class AtsAreaDriver extends Homey.Driver {
       .registerRunListener(async (args) => args.device.getCapabilityValue('ready_to_arm') === true);
 
     // Conditions: the two things that typically block arming.
-    for (const [cardId, capability] of [['area_has_open_zones', 'zones_open'], ['area_has_zone_faults', 'zone_faults']]) {
+    for (const [cardId, capability] of [['area_has_open_zones', 'zones_open'], ['area_has_zone_faults', 'zone_faults'], ['area_has_inhibited_zones', 'zones_inhibited']]) {
       this.homey.flow.getConditionCard(cardId)
         .registerRunListener(async (args) => args.device.getCapabilityValue(capability) === true);
     }

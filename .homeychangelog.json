@@ -1,4 +1,8 @@
 {
+  "0.13.0": {
+    "en": "New:\n- Flow cards for the entry and exit delay, so a Flow can act while the panel is counting down\n- tags on a finished countdown: whether the area ended up armed, and whether the alarm was sounding\n- a condition to check whether an area is counting down\n- a condition to check whether an area has bypassed zones",
+    "nl": "Nieuw:\n- Flow-kaarten voor de in- en uitlooptijd, zodat een Flow kan handelen terwijl het paneel aftelt\n- tags bij een afgelopen aftelling: was het gebied ingeschakeld, ging het alarm af\n- een voorwaarde om te controleren of een gebied aftelt\n- een voorwaarde om te controleren of een gebied overbrugde zones heeft"
+  },
   "0.12.0": {
     "en": "New:\n- bypass and restore zones from Flows, with the zone name as a tag\n- zones now report a battery alarm\n\nFixed: an isolated zone was shown as monitored.",
     "nl": "Nieuw:\n- zones overbruggen en herstellen vanuit Flows, met de zonenaam als tag\n- zones melden nu een batterijalarm\n\nOpgelost: een geïsoleerde zone werd als bewaakt getoond."

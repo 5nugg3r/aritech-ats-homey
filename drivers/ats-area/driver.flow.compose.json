@@ -102,6 +102,11 @@
       "hint": { "en": "Checks whether one or more zones in this area report a fault.", "nl": "Controleert of er een of meer zones in dit gebied een storing melden." }
     },
     {
+      "id": "area_in_delay",
+      "title": { "en": "The area !{{is|isn't}} in an entry or exit delay", "nl": "Het gebied !{{is|is niet}} in een in- of uitlooptijd" },
+      "hint": { "en": "Checks whether the panel is counting down an entry or exit delay. During those seconds the area already reports as armed, so add this condition to keep a Flow from treating your own coming and going as an intrusion.", "nl": "Controleert of het paneel een in- of uitlooptijd aftelt. Tijdens die seconden meldt het gebied zich al als ingeschakeld, dus voeg deze voorwaarde toe om te voorkomen dat een Flow je eigen komen en gaan als inbraak behandelt." }
+    },
+    {
       "id": "zone_is_open",
       "title": { "en": "Zone !{{is|isn't}} open", "nl": "Zone !{{is|is niet}} open" },
       "titleFormatted": { "en": "Zone [[zone]] !{{is|isn't}} open", "nl": "Zone [[zone]] !{{is|is niet}} open" },

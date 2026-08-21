@@ -57,5 +57,7 @@
   "bugs": {
     "url": "https://github.com/5nugg3r/aritech-ats-homey/issues"
   },
-  "source": "https://github.com/5nugg3r/aritech-ats-homey"
+  "source": "https://github.com/5nugg3r/aritech-ats-homey",
+  "support": "https://community.homey.app/t/aritech-ats-advisor-advanced-alarm-panel/158562",
+  "homeyCommunityTopicId": 158562
 }

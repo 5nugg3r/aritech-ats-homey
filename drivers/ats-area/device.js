@@ -455,6 +455,19 @@ class AtsAreaDevice extends Homey.Device {
    * @param {number} zoneNum
    * @returns {boolean}
    */
+  /**
+   * Whether the panel is counting down an entry or exit delay for this area.
+   * The area already reports as armed during those seconds, so Flows need a way
+   * to tell a real intrusion apart from someone walking in or out.
+   * @returns {boolean}
+   */
+  isInEntryExitDelay() {
+    const map = this._conn && this._conn.getAreaStates ? this._conn.getAreaStates() : {};
+    const entry = map[this._areaNumber];
+    const a = entry && entry.state ? entry.state : entry;
+    return !!(a && (a.isExiting || a.isEntering));
+  }
+
   isZoneOpen(zoneNum) {
     const map = this._conn && this._conn.getZoneStates ? this._conn.getZoneStates() : {};
     const entry = map[zoneNum];

@@ -39,6 +39,10 @@ class AtsAreaDriver extends Homey.Driver {
     zoneIsInhibited.registerRunListener(async (args) => args.device.isZoneInhibited(Number(args.zone.number)));
     zoneIsInhibited.registerArgumentAutocompleteListener('zone', async (query, args) => args.device.zoneAutocomplete(query));
 
+    // Condition: is the panel counting down an entry or exit delay?
+    this.homey.flow.getConditionCard('area_in_delay')
+      .registerRunListener(async (args) => args.device.isInEntryExitDelay());
+
     // Condition: can this area be armed right now?
     this.homey.flow.getConditionCard('area_is_ready_to_arm')
       .registerRunListener(async (args) => args.device.getCapabilityValue('ready_to_arm') === true);
